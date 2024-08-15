@@ -1,0 +1,35 @@
+<li class="nav-item" :class="{'menu-open': isMenuExtended}">
+    <a class="nav-link"
+       :class="{'active': isMainActive || isOneOfChildrenActive}"
+       @click="handleMainMenuAction">
+        <i class="nav-icon far fa-envelope" v-if="(menuItem.name == 'labels.mailBox')"></i>
+        <i class="nav-icon far fa-question-circle" v-if="(menuItem.name == 'labels.contactUs')"></i>
+        <i class="nav-icon far fa-check-square" v-if="(menuItem.name == 'labels.whatWeDo')"></i>
+        <i class="nav-icon fas fa-tools" v-if="(menuItem.name == 'labels.adminTools')"></i>
+        <i class="nav-icon fas fa-tachometer-alt" v-if="menuItem.name == 'labels.dashboard'"></i>
+        <i class="nav-icon fas fa-dollar-sign" v-if="menuItem.name == 'labels.pricelist'"></i>
+        <i class="nav-icon fas fa-award" v-if="menuItem.name == 'labels.awards'"></i>
+        <i class="nav-icon far fa-lightbulb" v-if="menuItem.name == 'labels.references'"></i>
+        <i class="nav-icon fas fa-shopping-basket" v-if="menuItem.name == 'labels.eshop'"></i>
+        <i class="nav-icon far fa-calendar-alt" v-if="menuItem.name == 'labels.calendarAgendas'"></i>
+        <i class="nav-icon fas fa-server" v-if="menuItem.name == 'labels.easydatacenter'"></i>
+        <i class="nav-icon fas fa-layer-group" v-if="menuItem.name == 'labels.easybuilder'"></i>
+        <i class="nav-icon fab fa-connectdevelop" v-if="menuItem.name == 'labels.productsDevelopment'"></i>
+        <i class="nav-icon fas fa-book" v-if="menuItem.name == 'labels.documentation'"></i>
+        <i class="nav-icon far fa-images" v-if="menuItem.name == 'labels.photogallery'"></i>
+        <p>{{ $t(menuItem.name) }}</p>
+        <i v-if="isExpandable" class="right fas fa-angle-left"></i>
+    </a>
+    <ul class="nav nav-treeview" v-for="item in menuItem.children">
+        <li class="nav-item">
+            <router-link :id="item.path"
+                         :to="item.path"
+                         class="nav-link"
+                         exact
+                         exact-active-class="active">
+                <i class="far fa-circle nav-icon"></i>
+                <p>{{ $t(item.name) }}</p>
+            </router-link>
+        </li>
+    </ul>
+</li>

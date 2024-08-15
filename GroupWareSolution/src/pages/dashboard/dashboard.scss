@@ -1,0 +1,38 @@
+#disk-info, #ram-info, #cpu-info {
+    display: block;
+    position: absolute;
+    font-size: 32px;
+    color: #c4122f;
+    width: 200px;
+    white-space: nowrap;
+}
+
+#disk-info {
+    text-align: right;
+    top: 54px;
+    left: 50%;
+    transform: translateX(-370px);
+}
+
+#cpu-info {
+    text-align: left;
+    top: 54px;
+    left: 50%;
+    transform: translateX(180px);
+}
+
+#ram-info {
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-10px);
+    text-align: center;
+}
+
+
+iframe {
+    display: block; /* iframes are inline by default */
+    background: #000;
+    border: none; /* Reset default border */
+    width: 100%;
+    height: 100%;
+}

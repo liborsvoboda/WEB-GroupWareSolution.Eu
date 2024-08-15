@@ -1,0 +1,164 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>{{ $t("labels.manageEshopItems") }}</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><router-link to="/">{{$t("labels.home")}}</router-link></li>
+                    <li class="breadcrumb-item active">{{ $t("labels.manageEshopItems") }}</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-primary card-outline">
+                <div class="card-header">
+                    <h3 class="card-title">{{ $t("labels.eshopItems") }}</h3>
+
+                    <div class="card-tools">
+                        <div class="input-group input-group-sm">
+                            <input type="text" class="form-control" placeholder="Search Item">
+                            <div class="input-group-append">
+                                <div class="btn btn-primary">
+                                    <i class="fas fa-search"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body p-0">
+
+                    <div class="mailbox-controls">
+                        <button type="button" class="btn btn-default btn-sm" v-on:click="eshopItemAdd()" :title='$t("titles.itemAdd")'>
+                            <i class="fas fa-cart-plus"></i>
+                        </button>
+
+                        <button type="button" class="btn btn-default btn-sm checkbox-toggle" :disabled="(eshopItems.length == 0)" v-on:click="selectAll()" :title='$t("titles.selectAll")'>
+                            <i class="far fa-square" v-if="!selectedAll"></i>
+                            <i class="far fa-check-square" v-if="selectedAll"></i>
+                        </button>
+
+                        <button type="button" class="btn btn-default btn-sm" :title='$t("titles.deleteSelected")' :disabled="(eshopItems.filter(function (obj) { if (obj.selected == true) { return true; } }).length == 0)" v-on:click="deleteEshopItem()">
+                            <i class="far fa-trash-alt"></i>
+                        </button>
+
+                        <button type="button" class="btn btn-default btn-sm" v-on:click="setWithInactive()" :title='$t("titles.withDeleted")'>
+                            <i class="fas fa-trash-restore" v-if="withInactive"></i>
+                            <i class="fas fa-trash " v-if="!withInactive"></i>
+                        </button>
+
+                        <button type="button" class="btn btn-default btn-sm" v-on:click="otherPage(0)" :title='$t("titles.refresh")'>
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+
+                        <div class="float-right">
+                            {{((pageNo > 0) ? pageNo*10+1 : 1)+'-'+(((pageNo > 0) ? pageNo*10 : 0)+eshopItems.length)}}
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default btn-sm" :disabled="(pageNo == 0)" v-on:click="otherPage(-1)">
+                                    <i class="fas fa-chevron-left"></i>
+                                </button>
+                                <button type="button" class="btn btn-default btn-sm" :disabled="(!nextPageAllowed)" v-on:click="otherPage(1)">
+                                    <i class="fas fa-chevron-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive mailbox-messages">
+                        <table class="table table-hover table-striped">
+                            <tr>
+                                <th>{{ $t("labels.selected") }}</th>
+                                <th>{{ $t("eshop.name") }}</th>
+                                <th>{{ $t("eshop.blankUrl") }}</th>
+                                <th class="text-right">{{ $t("eshop.price") }}</th>
+                                <th class="text-center">{{ $t("eshop.defaultImage") }}</th>
+                                <th>{{ $t("eshop.saleDateStart") }}</th>
+                                <th>{{ $t("eshop.status") }}</th>
+                            </tr>
+                            <tbody>
+                                <tr v-for="eshopItem,index in eshopItems">
+                                    <td>
+                                        <div class="icheck-primary">
+                                            <input type="checkbox" v-model="eshopItem.selected" v-bind:id="'selected_'+eshopItem.id" v-on:click="selectId(index)">
+                                            <label v-bind:for="'selected_'+eshopItem.id"></label>
+                                        </div>
+                                    </td>
+                                    <td class="mailbox-name pointer" v-on:click="showEshopItem(eshopItem.id)" v-if="($t('check') == 'cz')">
+                                        {{eshopItem.name_cz}}
+                                        <div v-html="eshopItem.shortDescription_cz"></div>
+                                    </td>
+                                    <td class="mailbox-subject pointer" v-on:click="showEshopItem(eshopItem.id)" v-if="($t('check') == 'en')">
+                                        {{eshopItem.name_en}}
+                                        <div v-html="eshopItem.shortDescription_en"></div>
+                                    </td>
+
+                                    <td class="mailbox-subject pointer" v-on:click="showEshopItem(eshopItem.id)">{{eshopItem.blankUrl}}</td>
+
+                                    <td class="mailbox-subject pointer text-right" v-on:click="showEshopItem(eshopItem.id)" v-if="eshopItem.priceType == 'VALUE'">
+                                        {{eshopItem.price * (1/getCurrencyByCountry($t('check')).value)}}
+                                        <span>{{getCurrencyByCountry($t('check')).name}}</span>
+                                    </td>
+
+                                    <td class="mailbox-subject pointer text-right" v-on:click="showEshopItem(eshopItem.id)" v-if="eshopItem.priceType == 'CALCULATE'">{{$t("eshop.calculatedPrice")}}</td>
+                                    <td class="mailbox-subject pointer text-right" v-on:click="showEshopItem(eshopItem.id)" v-if="eshopItem.priceType == 'AGREED'">{{$t("eshop.agreedPrice")}}</td>
+
+                                    <td class="mailbox-attachment pointer text-center" v-on:click="showEshopItem(eshopItem.id)"><img :src="eshopItem.attachments[0].content" v-if="(eshopItem.attachmentExist)" style="height:120px;" /></td>
+                                    <td class="mailbox-date pointer" v-on:click="showEshopItem(eshopItem.id)">{{new Date(eshopItem.timestamp).toLocaleDateString("cs-CZ").replace(/\s+/g, '') + $t("labels.in") + new Date(eshopItem.timestamp).toLocaleTimeString("cs-CZ")}}</td>
+
+                                    <td class="mailbox-subject pointer" v-on:click="showEshopItem(eshopItem.id)" v-if="eshopItem.enabled == 1">{{$t("eshop.active")}}</td>
+                                    <td class="mailbox-subject pointer" v-on:click="showEshopItem(eshopItem.id)" v-if="eshopItem.enabled == 0">{{$t("eshop.inactive")}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card-footer p-0">
+                    <div class="mailbox-controls">
+                        <button type="button" class="btn btn-default btn-sm" v-on:click="eshopItemAdd()" :title='$t("titles.itemAdd")'>
+                            <i class="fas fa-cart-plus"></i>
+                        </button>
+
+                        <button type="button" class="btn btn-default btn-sm checkbox-toggle" :disabled="(eshopItems.length == 0)" v-on:click="selectAll()" :title='$t("titles.selectAll")'>
+                            <i class="far fa-square" v-if="!selectedAll"></i>
+                            <i class="far fa-check-square" v-if="selectedAll"></i>
+                        </button>
+
+                        <button type="button" class="btn btn-default btn-sm" :title='$t("titles.deleteSelected")' :disabled="(eshopItems.filter(function (obj) { if (obj.selected == true) { return true; } }).length == 0)" v-on:click="deleteEshopItem()">
+                            <i class="far fa-trash-alt"></i>
+                        </button>
+
+                        <button type="button" class="btn btn-default btn-sm" v-on:click="setWithInactive()" :title='$t("titles.withDeleted")'>
+                            <i class="fas fa-trash-restore" v-if="withInactive"></i>
+                            <i class="fas fa-trash " v-if="!withInactive"></i>
+                        </button>
+
+                        <button type="button" class="btn btn-default btn-sm" v-on:click="otherPage(0)">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+
+                        <div class="float-right">
+                            {{((pageNo > 0) ? pageNo*10+1 : 1)+'-'+(((pageNo > 0) ? pageNo*10 : 0)+eshopItems.length)}}
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default btn-sm" :disabled="(pageNo == 0)" v-on:click="otherPage(-1)">
+                                    <i class="fas fa-chevron-left"></i>
+                                </button>
+                                <button type="button" class="btn btn-default btn-sm" :disabled="(!nextPageAllowed)" v-on:click="otherPage(1)">
+                                    <i class="fas fa-chevron-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

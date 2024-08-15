@@ -1,0 +1,113 @@
+﻿<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 v-if="selectedEshopItemId == null">{{$t("labels.eshopItemAdd")}}</h1>
+                <h1 v-if="selectedEshopItemId != null">{{$t("labels.eshopItemEdit")}}</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><router-link to="/">{{$t("labels.home")}}</router-link></li>
+                    <li class="breadcrumb-item "><router-link to="/manageEshopItems">{{ $t("labels.manageEshopItems") }}</router-link></li>
+                    <li class="breadcrumb-item active">{{$t("labels.eshopItemAdd")}}</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <!-- Default box -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card-body row">
+                <div class="col-12">
+                    <div class="form-group">
+                        <label for="inputNameCZ">{{$t("eshop.name")}} {{$t("languages.czech")}}</label>
+                        <input type="text" v-model="inputNameCZ" v-on:input="validations()" class="form-control" maxlength="255" :class="{ wrongInput: v$.inputNameCZ.$invalid }" />  <!--:class="{ wrongInput: v$.userForm.inputName.$errors.lenght }"-->
+                    </div>
+                    <div class="form-group">
+                        <label for="inputNameEN">{{$t("eshop.name")}} {{$t("languages.english")}}</label>
+                        <input type="text" v-model="inputNameEN" v-on:input="validations()" class="form-control" maxlength="255" :class="{ wrongInput: v$.inputNameEN.$invalid }" />  <!--:class="{ wrongInput: v$.userForm.inputName.$errors.lenght }"-->
+                    </div>
+                    <div class="form-group">
+                        <label>{{$t("labels.shortDescription")}} {{$t("languages.czech")}}</label>
+                        <div id="summernoteShortCz">{{shortContentCZ}}</div>
+                    </div>
+                    <div class="form-group">
+                        <label>{{$t("labels.shortDescription")}} {{$t("languages.english")}}</label>
+                        <div id="summernoteShortEn">{{shortContentEN}}</div>
+                    </div>
+                    <div class="form-group">
+                        <label>{{$t("labels.description")}} {{$t("languages.czech")}}</label>
+                        <div id="summernoteCz">{{contentCZ}}</div>
+                    </div>
+                    <div class="form-group">
+                        <label>{{$t("labels.description")}} {{$t("languages.english")}}</label>
+                        <div id="summernoteEn">{{contentEN}}</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputBlankUrl">{{$t("eshop.blankUrl")}}</label>
+                        <input type="text" v-model="inputBlankUrl" maxlength="1024" required class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>{{$t("eshop.priceDescription")}}</label>
+                        <app-select class=""
+                                    v-model="priceType"
+                                    :options="priceTypeList"
+                                    type="custom"
+                                    @change="priceTypeSelect">
+                        </app-select>
+                    </div>
+                    <div class="form-group" v-if="priceType == 'VALUE'">
+                        <label>{{$t("eshop.priceCZK")}}</label>
+                        <input type="number" v-model="inputPrice" v-on:input="validations()" maxlength="12" required class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>{{$t("eshop.vat")}}</label>
+                        <app-select class=""
+                                    v-model="vat"
+                                    :options="vatList"
+                                    type="custom"
+                                    @change="vatSelect"
+                                    >
+                        </app-select>
+                    </div>
+
+                    <div class="form-group">
+                        <app-checkbox type="icheck" v-model="inputActive">
+                            {{ $t("eshop.active") }}
+                        </app-checkbox>
+                    </div>
+
+                    <div class="form-group">
+                        <span class="btn btn-default btn-file">
+                            <i class="fas fa-paperclip"></i> {{$t("labels.addAtachment")}}
+                            <input type="file" @change="loadTextFromFile">
+                        </span>
+                        <!--<span style="padding-left: 7px;">Max. 32MB</span>-->
+                    </div>
+
+                    <div class="form-group">
+                        <ul>
+                            <li v-for="file,index in filesArray" style="list-style-type: none;">
+                                <i class="far fa-trash-alt pointer" v-on:click="deleteFile(index)" :title="$t('labels.removeAttachment')"></i>
+                                <i class="far fa-eye-slash pointer" v-if="file.default == 0 && ['png','jpeg','jpg'].some(el => file.mimeType.includes(el))" v-on:click="setDefaultFile(index)" :title="$t('eshop.setDefault')" style="padding-left:7px;"></i>
+                                <i class="fas fa-eye " v-if="file.default == 1" :title="$t('eshop.default')" style="padding-left:7px;"></i>
+                                <span class="pointer" style="padding-left:7px;" v-on:click="downloadFile(index)">{{file.fileName}} {{parseFloat(file.size/1048576).toFixed(2)}} MB</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="form-group">
+                        <button v-on:click="saveEshopItem()" :disabled="(v$.$invalid) || !defaultFileExists" class="btn btn-primary btn-flat">{{ $t("eshop.saveEshopItem") }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

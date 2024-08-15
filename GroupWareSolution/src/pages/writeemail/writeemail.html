@@ -1,0 +1,82 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>{{ $t("labels.writeNewEmail") }}</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><router-link to="/">{{$t("labels.home")}}</router-link></li>
+                    <li class="breadcrumb-item active">{{ $t("labels.writeNewEmail") }}</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <!-- Default box -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card-body row">
+                <div class="col-5 text-center d-flex align-items-center justify-content-center">
+                    <div class="">
+                        <img src="@/assets/img/groupwearesolutions.png" style="max-height: 200px; " />
+                        <h2>{{$t("labels.company")}}</h2>
+                        <p class="lead mb-5">
+                            Libor Svoboda<br />
+                            Žlutava 173; 763 61 Žlutava;<br />
+                            {{$t("labels.czechRepublic")}} <br /><br />
+                            IČO: 86973681 , DIČ: CZ8006295319<br />
+                            {{$t("labels.phone")}}: <a href="callto:724986873">724 986 873</a>, <a href="callto:778785428">778 785 428</a><br />
+                            Email: <a href="mailto:Libor.Svoboda@KlikneteZde.cz">Libor.Svoboda@KlikneteZde.cz</a>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-7">
+                    <div class="form-group">
+                        <label for="inputName">{{$t("labels.yourNameAndSurname")}}</label>
+                        <input type="text" v-model="inputName" v-on:input="validations()" :disabled="(user != null && (user.name + user.surname).length > 0)" class="form-control" maxlength="101" :class="{ wrongInput: v$.inputName.$invalid }" />  <!--:class="{ wrongInput: v$.userForm.inputName.$errors.lenght }"-->
+                    </div>
+                    <div class="form-group">
+                        <label for="inputEmail">{{$t("labels.contactEmail")}}</label>
+                        <input type="email" v-model="inputEmail" v-on:input="validations()" :disabled="(user != null)" class="form-control" maxlength="255" :class="{ wrongInput: v$.inputEmail.$invalid }" />  <!--v-on:input="checkSend()" :class="{ '_input-error': inputEmail.$error }" -->
+                        <!--<span v-if="v$.inputEmail.$error">
+                            {{ v$.inputEmail.$errors[0].$message }}
+                        </span>-->
+                    </div>
+                    <div class="form-group">
+                        <label for="inputSubject">{{$t("labels.subject")}}</label>
+                        <input type="text" v-model="inputSubject" v-on:input="validations()" maxlength="500" required class="form-control" :class="{ wrongInput: v$.inputSubject.$invalid }" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputSubject">{{$t("labels.message")}}</label>
+                        <QuillEditor id="inputEditor" toolbar="essential" theme="snow" />
+                    </div>
+
+                    <div class="form-group">
+                        <span class="btn btn-default btn-file">
+                            <i class="fas fa-paperclip"></i> {{$t("labels.addAtachment")}}
+                            <input type="file" @change="loadTextFromFile">
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+                        <ul>
+                            <li v-for="file,index in filesArray" style="list-style-type: none;">
+                                <i class="far fa-trash-alt pointer" v-on:click="deleteFile(index)" :title="$t('labels.removeAttachment')"></i><span style="padding-left:7px;">{{file.fileName}} {{parseFloat(file.size/1048576).toFixed(2)}} MB</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="form-group">
+                        <button v-on:click="sendMessage()" :disabled="(v$.$invalid)" class="btn btn-primary btn-flat">{{ $t("labels.sendMessage") }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

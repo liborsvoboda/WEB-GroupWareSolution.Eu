@@ -1,0 +1,51 @@
+{
+  "address": "0.0.0.0",
+  "host": "groupware-solution.eu",
+  "port": 444,
+  "ssl": {
+    "key": "/letsEncrypt/groupware-solution.eu-le.key",
+    "cert": "/letsEncrypt/groupware-solution.eu-le.crt"
+  },
+  "recaptcha": {
+    "key": "6Lel4uIdAAAAADiYGEkn82jnMT-rlbIuP5G_c8wJ",
+    "secret": "6Lel4uIdAAAAAPqFl60xFIZ9RxdWpUpCXJc6tA3O"
+  },
+  "bcrypt": {
+    "rounds": 10
+  },
+  "server": {
+    "timeout": 86400000,
+    "maxConnections": 50,
+    "testPort": 3300
+  },
+  "db": {
+    "host": "127.0.0.1",
+    "type": "mysql",
+    "dbname": "c1webpages",
+    "user": "c1svoboda",
+    "password": "Ubuntu1980",
+    "poolMin": 0,
+    "poolMax": 10,
+    "poolAcquire": 500000000,
+    "poolIdle": 10000,
+    "realtime": {
+      "host": "185.129.138.52",
+      "user": "zongji",
+      "password": "fJ6K4&B78^vxpzL",
+      "charset": "utf8_general_ci",
+      "dateStrings": true,
+      "serverId": 1
+    }
+  },
+  "smtp": {
+    "host": "groupware-solution.eu",
+    "adminEmail": "libor.svoboda@kliknetezde.cz",
+    "port": 25,
+    "secure": false,
+    "auth": {
+      "user": "sender@groupware-solution.eu",
+      "pass": "qfiqPSQLyZ2!3"
+    },
+    "rejectUnauthorized": false
+  }
+}

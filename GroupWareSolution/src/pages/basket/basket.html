@@ -1,0 +1,411 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>{{ $t("eshop.newOrder") }}</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><router-link to="/eshop">{{$t("labels.eshop")}}</router-link></li>
+                    <li class="breadcrumb-item active">{{ $t("eshop.newOrder") }}</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="card flex-column justify-content-center align-items-center" v-if="isLoading">
+        <img class="animation__shake" src="@/assets/img/groupwearesolutions.png" alt="AdminLTELogo" height="60" width="60">
+    </div>
+    <div v-else class="row">
+        <div class="col-md-12">
+            <div class="card card-primary card-outline">
+                <div class="mt-3 d-flex justify-content-between bd-highlight mb-3">
+                    <h3 class="card-title ml-2" v-if="orderStep == 1">{{$t("eshop.basketItems")}}</h3>
+                    <h3 class="card-title ml-2" v-if="orderStep == 2">{{$t("eshop.contactInformation")}}</h3>
+                    <h3 class="card-title ml-2" v-if="orderStep == 3">{{$t("eshop.recapitulation")}}</h3>
+                    <h3 class="card-title ml-2" v-if="orderStep == 4">{{$t("eshop.sendOrder")}}</h3>
+
+                    <div class="card-tools" v-if="orderStep < 4">
+                        <button type="button" class="btn badge-info mr-2 " style="border-color: #ddd;" v-on:click="setOrderStep(1);"><i class="fas fa-shopping-cart fa-lg"></i> {{$t("eshop.orderItemList")}}</button>
+                        <button type="button" class="btn badge-info mr-2" style="border-color: #ddd;" v-on:click="setOrderStep(2);" :disabled="eshopItems.length == 0 & orderStep"><i class="fas fa-address-book fa-lg"></i> {{$t("eshop.contactInformation")}}</button>
+                        <button type="button" class="btn badge-info mr-2" style="border-color: #ddd;" v-on:click="setOrderStep(3);" :disabled="(eshopItems.length == 0 || invalid)"><i class="fas fa-file-invoice-dollar fa-lg"></i> {{$t("eshop.recapitulation")}}</button>
+                        <button type="button" class="btn badge-success" style="border-color: #ddd;" v-on:click="setOrderStep(4);" :disabled="(eshopItems.length == 0 || invalid || orderStep != 3)"><i class="far fa-share-square fa-lg"></i> {{$t("eshop.sendOrder")}}</button>
+                    </div>
+
+                    <div class="float-right" v-if="orderStep < 4">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default btn-sm" :disabled="(orderStep == 1 || eshopItems.length == 0)" v-on:click="setOrderStep(orderStep - 1)">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <button type="button" class="btn btn-default btn-sm" :disabled="(orderStep == 4 || eshopItems.length == 0)" v-on:click="setOrderStep(orderStep + 1)">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="card card-body p-0" v-if="orderStep == 1">
+
+                    <div class="mailbox-controls d-flex justify-content-between">
+                        <span>
+                            <button type="button" class="btn btn-default btn-sm checkbox-toggle" :disabled="(eshopItems.length == 0)" v-on:click="selectAll()" :title='$t("titles.selectAll")'>
+                                <i class="far fa-square" v-if="!selectedAll"></i>
+                                <i class="far fa-check-square" v-if="selectedAll"></i>
+                            </button>
+
+                            <button type="button" class="btn btn-default btn-sm" :disabled="(eshopItems.filter(function (obj) { if (obj.selected == true) { return true; } }).length == 0)" v-on:click="deleteEshopItem()" :title='$t("titles.deleteSelected")'>
+                                <i class="far fa-trash-alt"></i>
+                            </button>
+                        </span>
+
+                        <div class="text-center" v-if="($t('check') == 'cz')">
+                            {{$t("eshop.totalPrice")}}/{{$t("eshop.withVat")}}: {{totalPrice}} {{getCurrencyByCountry($t('check')).name}} / {{Math.round(totalPriceWithVat,0)}} {{getCurrencyByCountry($t('check')).name}}
+                        </div>
+
+                        <div class="text-center" v-if="($t('check') == 'en')">
+                            {{$t("eshop.totalPrice")}}/{{$t("eshop.withVat")}}: {{totalPrice}} {{getCurrencyByCountry($t('check')).name}} / {{Math.round(totalPriceWithVat * 100,2)/100 }} {{getCurrencyByCountry($t('check')).name}}
+                        </div>
+                    </div>
+
+                    <div class="table-responsive mailbox-messages">
+                        <table class="table table-hover table-striped">
+                            <tr>
+                                <th>{{ $t("labels.selected") }}</th>
+                                <th class="text-left">{{ $t("eshop.defaultPicture") }}</th>
+                                <th class="text-left">{{ $t("eshop.name") }}</th>
+                                <th class="text-right">{{ $t("eshop.amount") }}</th>
+                                <th class="text-right">{{ $t("eshop.totalPrice") }}</th>
+                                <th class="text-right">{{ $t("eshop.vat") }}</th>
+                                <th class="text-right">{{ $t("eshop.totalPrice") }} {{ $t("eshop.withVat") }}</th>
+                                <th class="text-right">{{ $t("eshop.delete") }}</th>
+                            </tr>
+                            <tbody>
+                                <tr v-for="eshopItem,index in eshopItems">
+                                    <td>
+                                        <div class="icheck-primary">
+                                            <input type="checkbox" v-model="eshopItem.selected" v-bind:id="'selected_'+index" v-on:click="selectId(index)">
+                                            <label v-bind:for="'selected_'+index"></label>
+                                        </div>
+                                    </td>
+                                    <td class="mailbox-attachment pointer text-left" v-on:click="showEshopItem(eshopItem)"><img :src="eshopItem.image.content" style="height:120px;" /></td>
+
+                                    <td class="mailbox-name pointer" v-on:click="showEshopItem(eshopItem)" v-if="($t('check') == 'cz')">
+                                        <strong>{{eshopItem.name_cz}}</strong>
+                                        <div v-html="eshopItem.shortDescription_cz"></div>
+                                    </td>
+                                    <td class="mailbox-subject pointer" v-on:click="showEshopItem(eshopItem)" v-if="($t('check') == 'en')">
+                                        <strong>{{eshopItem.name_en}}</strong>
+                                        <div v-html="eshopItem.shortDescription_en"></div>
+                                    </td>
+
+                                    <td class="mailbox-subject pointer text-right" v-on:click="showEshopItem(eshopItem)">{{eshopItem.amount}}</td>
+
+                                    <td class="mailbox-subject pointer text-right" v-on:click="showEshopItem(eshopItem)" v-if="eshopItem.priceType == 'VALUE'">
+                                        {{eshopItem.amount * (eshopItem.price * (1/getCurrencyByCountry($t('check')).value))}}
+                                        <span>{{getCurrencyByCountry($t('check')).name}}</span>
+                                    </td>
+                                    <td class="mailbox-subject pointer text-right" v-on:click="showEshopItem(eshopItem)" v-if="eshopItem.priceType == 'CALCULATE'">{{$t("eshop.calculatedPrice")}}</td>
+                                    <td class="mailbox-subject pointer text-right" v-on:click="showEshopItem(eshopItem)" v-if="eshopItem.priceType == 'AGREED'">{{$t("eshop.agreedPrice")}}</td>
+
+
+                                    <td class="mailbox-subject pointer text-right" v-on:click="showEshopItem(eshopItem)" v-if="eshopItem.price >= 0">{{getVatById(eshopItem.vatId).name}}</td>
+
+                                    <td class="mailbox-subject pointer text-right" v-on:click="showEshopItem(eshopItem)" v-if="eshopItem.priceType == 'VALUE' && ($t('check') == 'cz')">
+                                        {{Math.round(eshopItem.amount * (eshopItem.price * (1/getCurrencyByCountry($t('check')).value) * (1 + getVatById(eshopItem.vatId).value)),0)}}
+                                        <span>{{getCurrencyByCountry($t('check')).name}}</span>
+                                    </td>
+
+                                    <td class="mailbox-subject pointer text-right" v-on:click="showEshopItem(eshopItem)" v-if="eshopItem.priceType == 'VALUE' && ($t('check') == 'en')">
+                                        {{(Math.round(eshopItem.amount * (eshopItem.price * (1/getCurrencyByCountry($t('check')).value) * 100 * (1 + getVatById(eshopItem.vatId).value)),2))/100}}
+                                        <span>{{getCurrencyByCountry($t('check')).name}}</span>
+                                    </td>
+                                    <td class="mailbox-subject pointer text-right" v-on:click="showEshopItem(eshopItem)" v-if="eshopItem.priceType == 'CALCULATE'">{{$t("eshop.calculatedPrice")}}</td>
+                                    <td class="mailbox-subject pointer text-right" v-on:click="showEshopItem(eshopItem)" v-if="eshopItem.priceType == 'AGREED'">{{$t("eshop.agreedPrice")}}</td>
+
+                                    <td class="mailbox-subject pointer text-right" v-on:click="RemoveBasket(index)"><i class="far fa-trash-alt"></i></td>
+                                </tr>
+                                <!--<tr v-if="eshopItem.note != undefined">
+                                    <td colspan="8" class="mailbox-subject pointer text-left">{{eshopItem.note}}</td>
+                                </tr>-->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card-footer p-0" v-if="orderStep == 1">
+                    <div class="mailbox-controls d-flex justify-content-between ">
+                        <span>
+                            <button type="button" class="btn btn-default btn-sm checkbox-toggle" :disabled="(eshopItems.length == 0)" v-on:click="selectAll()" :title='$t("titles.selectAll")'>
+                                <i class="far fa-square" v-if="!selectedAll"></i>
+                                <i class="far fa-check-square" v-if="selectedAll"></i>
+                            </button>
+
+                            <button type="button" class="btn btn-default btn-sm" :title='$t("titles.deleteSelected")' :disabled="(eshopItems.filter(function (obj) { if (obj.selected == true) { return true; } }).length == 0)" v-on:click="deleteEshopItem()">
+                                <i class="far fa-trash-alt"></i>
+                            </button>
+                        </span>
+
+                        <div class="text-center" v-if="($t('check') == 'cz')">
+                            {{$t("eshop.totalPrice")}}/{{$t("eshop.withVat")}}: {{totalPrice}} {{getCurrencyByCountry($t('check')).name}} / {{Math.round(totalPriceWithVat,0)}} {{getCurrencyByCountry($t('check')).name}}
+                        </div>
+
+                        <div class="text-center" v-if="($t('check') == 'en')">
+                            {{$t("eshop.totalPrice")}}/{{$t("eshop.withVat")}}: {{totalPrice}} {{getCurrencyByCountry($t('check')).name}} / {{Math.round(totalPriceWithVat * 100,2)/100 }} {{getCurrencyByCountry($t('check')).name}}
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--STEP 2-->
+                <div class="col-md-12 d-flex " v-if="orderStep == 2">
+                    <div class="mailbox-controls d-flex justify-content-between">
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>{{$t("eshop.orderInformations")}}</label>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inputCompanyName">{{$t("labels.companyName")}}</label>
+                            <input type="text" v-model="inputCompanyName" class="form-control" maxlength="255" />
+                        </div>
+                        <div class="form-group">
+                            <label for="inputName">{{$t("labels.yourNameAndSurname")}}</label>
+                            <input type="text" v-model="inputName" v-on:input="validations()" class="form-control" maxlength="101" :class="{ wrongInput: v$.inputName.$invalid }" />
+                        </div>
+                        <div class="form-group">
+                            <label for="inputStreet">{{$t("labels.street")}}</label>
+                            <input type="text" v-model="inputStreet" v-on:input="validations()" class="form-control" maxlength="255" :class="{ wrongInput: v$.inputStreet.$invalid }" />
+                        </div>
+                        <div class="form-group">
+                            <label for="inputCity">{{$t("labels.city")}}</label>
+                            <input type="email" v-model="inputCity" v-on:input="validations()" class="form-control" maxlength="150" :class="{ wrongInput: v$.inputCity.$invalid }" />
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPostCode">{{$t("labels.postcode")}}</label>
+                            <input type="email" v-model="inputPostCode" v-on:input="validations()" class="form-control" maxlength="10" :class="{ wrongInput: v$.inputPostCode.$invalid }" />
+                        </div>
+
+                        <div class="form-group mt-5">
+                            <label for="inputPhone">{{$t("labels.phone")}}</label>
+                            <input type="email" v-model="inputPhone" v-on:input="validations()" class="form-control" maxlength="20" :class="{ wrongInput: v$.inputPhone.$invalid }" />
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail">{{$t("labels.contactEmail")}}</label>
+                            <input type="email" v-model="inputEmail" v-on:input="validations()" class="form-control" maxlength="255" :class="{ wrongInput: v$.inputEmail.$invalid }" />
+                        </div>
+
+
+                        <div class="form-group mt-5">
+                            <label for="inputPaymentType">{{$t("labels.paymentType")}}</label>
+                            <app-select v-model="inputPaymentType"
+                                        :options="paymentTypeList"
+                                        type="custom"
+                                        @change="paymentTypeSelect"
+                                        :class="{ wrongInput: v$.inputPaymentType.$invalid }">
+                            </app-select>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputDeliveryType">{{$t("labels.deliveryType")}}</label>
+                            <app-select v-model="inputDeliveryType"
+                                        :options="deliveryTypeList"
+                                        type="custom"
+                                        @change="deliveryTypeSelect"
+                                        :class="{ wrongInput: v$.inputDeliveryType.$invalid }">
+                            </app-select>
+                        </div>
+
+                        <div class="form-group mt-5">
+                            <label>{{$t("labels.note")}}</label>
+                            <div id="summerNote">{{inputNote}}</div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <app-checkbox type="icheck" v-model="otherDeliveryAddress">
+                                <label>{{$t("eshop.otherDeliveryAddress")}}</label>
+                            </app-checkbox>
+                        </div>
+                        <div class="form-group" v-if="otherDeliveryAddress">
+                            <label for="inputDeliveryCompanyName" class="mb-1">{{$t("labels.companyName")}}</label>
+                            <input type="text" v-model="inputDeliveryCompanyName" class="form-control" maxlength="255" />
+                        </div>
+                        <div class="form-group" v-if="otherDeliveryAddress">
+                            <label for="inputDeliveryName">{{$t("labels.yourNameAndSurname")}}</label>
+                            <input type="text" v-model="inputDeliveryName" v-on:input="validations()" class="form-control" maxlength="101" />
+                        </div>
+                        <div class="form-group" v-if="otherDeliveryAddress">
+                            <label for="inputDeliveryStreet">{{$t("labels.street")}}</label>
+                            <input type="text" v-model="inputDeliveryStreet" v-on:input="validations()" class="form-control" maxlength="255" />
+                        </div>
+                        <div class="form-group" v-if="otherDeliveryAddress">
+                            <label for="inputDeliveryCity">{{$t("labels.city")}}</label>
+                            <input type="email" v-model="inputDeliveryCity" v-on:input="validations()" class="form-control" maxlength="150" />
+                        </div>
+                        <div class="form-group" v-if="otherDeliveryAddress">
+                            <label for="inputDeliveryPostCode">{{$t("labels.postcode")}}</label>
+                            <input type="email" v-model="inputDeliveryPostCode" v-on:input="validations()" class="form-control" maxlength="10" />
+                        </div>
+
+                        <div class="form-group mt-5" v-if="otherDeliveryAddress">
+                            <label for="inputDeliveryPhone">{{$t("labels.phone")}}</label>
+                            <input type="email" v-model="inputDeliveryPhone" v-on:input="validations()" class="form-control" maxlength="20" />
+                        </div>
+                        <div class="form-group" v-if="otherDeliveryAddress">
+                            <label for="inputDeliveryEmail">{{$t("labels.contactEmail")}}</label>
+                            <input type="email" v-model="inputDeliveryEmail" v-on:input="validations()" class="form-control" maxlength="255" />
+                        </div>
+
+                    </div>
+                </div>
+
+                <!--STEP 3-->
+                <div class="col-md-12 d-flex" v-if="orderStep == 3" id="printOrderArea">
+                    <div class="mailbox-controls d-flex justify-content-between">
+                    </div>
+
+                    <div class="col-md-6">
+                        <br />
+                        <div class="form-group">
+                            <label>{{$t("eshop.orderInformations")}}</label>
+                        </div>
+
+                        <div class="text-muted text-left">{{$t("labels.companyName")}}: {{inputCompanyName}}</div>
+                        <div class="text-muted text-left">{{$t("labels.yourNameAndSurname")}}: {{inputName}}</div>
+                        <div class="text-muted text-left">{{$t("labels.street")}}: {{inputStreet}}</div>
+                        <div class="text-muted text-left">{{$t("labels.postcode")}} & {{$t("labels.city")}}: {{inputPostCode}} {{inputCity}} </div>
+
+                        <br />
+                        <div class="text-muted text-left">{{$t("labels.contactEmail")}}: {{inputEmail}}</div>
+                        <div class="text-muted text-left">{{$t("labels.phone")}}: {{inputPhone}}</div>
+
+                        <br />
+                        <div class="text-muted text-left">{{$t("labels.paymentType")}}: {{inputPaymentType}}</div>
+                        <div class="text-muted text-left">{{$t("labels.deliveryType")}}: {{inputDeliveryType}}</div>
+
+                        <br />
+                        <div class="text-muted text-left">{{$t("labels.bankAccount")}}: 43-4378530247 / 0100</div>
+                        <div class="text-muted text-left">{{$t("labels.variableSymbol")}}: {{variableSymbol}}</div>
+                        <br />
+                        <div class="text-muted text-left">{{$t("labels.note")}}:</div>
+                        <div class="text-muted text-left" v-html="inputNote"></div>
+                        <br />
+                    </div>
+
+                    <div class="col-md-5" v-if="otherDeliveryAddress">
+                        <br />
+                        <div class="form-group">
+                            <label>{{$t("eshop.otherDeliveryAddress")}}</label>
+                        </div>
+                        <div class="text-muted text-left">{{$t("labels.companyName")}}: {{inputDeliveryCompanyName}}</div>
+                        <div class="text-muted text-left">{{$t("labels.yourNameAndSurname")}}: {{inputDeliveryName}}</div>
+                        <div class="text-muted text-left">{{$t("labels.street")}}: {{inputDeliveryStreet}}</div>
+                        <div class="text-muted text-left">{{$t("labels.postcode")}} & {{$t("labels.city")}}: {{inputDeliveryPostCode}} {{inputDeliveryCity}} </div>
+
+                        <br />
+                        <div class="text-muted text-left">{{$t("labels.contactEmail")}}: {{inputDeliveryEmail}}</div>
+                        <div class="text-muted text-left">{{$t("labels.phone")}}: {{inputDeliveryPhone}}</div>
+                    </div>
+                </div>
+
+                <div class="card card-body p-0" v-if="orderStep == 3">
+
+                    <div class="mailbox-controls d-flex justify-content-center" id="printPriceArea">
+                        <div class="text-center" v-if="($t('check') == 'cz')">
+                            <strong>{{$t("eshop.totalPrice")}}/{{$t("eshop.withVat")}}: {{totalPrice}} {{getCurrencyByCountry($t('check')).name}} / {{Math.round(totalPriceWithVat,0)}} {{getCurrencyByCountry($t('check')).name}}</strong>
+                            <button type="button" class="btn badge-info ml-2 " style="border-color: #ddd;" v-on:click="print()"><i class="fas fa-print"></i> {{$t("labels.printOrder")}}</button>
+                        </div>
+
+                        <div class="text-center" v-if="($t('check') == 'en')">
+                            <strong>{{$t("eshop.totalPrice")}}/{{$t("eshop.withVat")}}: {{totalPrice}} {{getCurrencyByCountry($t('check')).name}} / {{Math.round(totalPriceWithVat * 100,2)/100 }} {{getCurrencyByCountry($t('check')).name}}</strong>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive mailbox-messages" id="printItemArea">
+                        <table class="table table-hover table-striped">
+                            <tr>
+                                <th class="text-left">{{ $t("eshop.defaultPicture") }}</th>
+                                <th class="text-left">{{ $t("eshop.name") }}</th>
+                                <th class="text-right">{{ $t("eshop.amount") }}</th>
+                                <th class="text-right">{{ $t("eshop.totalPrice") }}</th>
+                                <th class="text-right">{{ $t("eshop.vat") }}</th>
+                                <th class="text-right">{{ $t("eshop.totalPrice") }} {{ $t("eshop.withVat") }}</th>
+                            </tr>
+                            <tbody>
+                                <tr v-for="eshopItem,index in eshopItems">
+                                    <td class="mailbox-attachment pointer text-left"><img :src="eshopItem.image.content" style="height:120px;" /></td>
+
+                                    <td class="mailbox-name pointer" v-if="($t('check') == 'cz')">
+                                        <strong>{{eshopItem.name_cz}}</strong>
+                                        <div v-html="eshopItem.shortDescription_cz"></div>
+                                    </td>
+                                    <td class="mailbox-subject pointer" v-if="($t('check') == 'en')">
+                                        <strong>{{eshopItem.name_en}}</strong>
+                                        <div v-html="eshopItem.shortDescription_en"></div>
+                                    </td>
+
+                                    <td class="mailbox-subject pointer text-right">{{eshopItem.amount}}</td>
+
+                                    <td class="mailbox-subject pointer text-right" v-if="eshopItem.priceType == 'VALUE'">
+                                        {{eshopItem.amount * (eshopItem.price * (1/getCurrencyByCountry($t('check')).value))}}
+                                        <span>{{getCurrencyByCountry($t('check')).name}}</span>
+                                    </td>
+                                    <td class="mailbox-subject pointer text-right" v-if="eshopItem.priceType == 'CALCULATE'">{{$t("eshop.calculatedPrice")}}</td>
+                                    <td class="mailbox-subject pointer text-right" v-if="eshopItem.priceType == 'AGREED'">{{$t("eshop.agreedPrice")}}</td>
+
+
+                                    <td class="mailbox-subject pointer text-right" v-if="eshopItem.price >= 0">{{getVatById(eshopItem.vatId).name}}</td>
+
+                                    <td class="mailbox-subject pointer text-right" v-if="eshopItem.priceType == 'VALUE' && ($t('check') == 'cz')">
+                                        {{Math.round(eshopItem.amount * (eshopItem.price * (1/getCurrencyByCountry($t('check')).value) * (1 + getVatById(eshopItem.vatId).value)),0)}}
+                                        <span>{{getCurrencyByCountry($t('check')).name}}</span>
+                                    </td>
+
+                                    <td class="mailbox-subject pointer text-right" v-if="eshopItem.priceType == 'VALUE' && ($t('check') == 'en')">
+                                        {{(Math.round(eshopItem.amount * (eshopItem.price * (1/getCurrencyByCountry($t('check')).value) * 100 * (1 + getVatById(eshopItem.vatId).value)),2))/100}}
+                                        <span>{{getCurrencyByCountry($t('check')).name}}</span>
+                                    </td>
+                                    <td class="mailbox-subject pointer text-right" v-if="eshopItem.priceType == 'CALCULATE'">{{$t("eshop.calculatedPrice")}}</td>
+                                    <td class="mailbox-subject pointer text-right" v-if="eshopItem.priceType == 'AGREED'">{{$t("eshop.agreedPrice")}}</td>
+                                </tr>
+                                <!--<tr v-if="eshopItem.note != undefined">
+                                    <td colspan="8" class="mailbox-subject pointer text-left">{{eshopItem.note}}</td>
+                                </tr>-->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card-footer p-0" v-if="orderStep == 3">
+                    <div class="mailbox-controls d-flex justify-content-center ">
+                        <div class="text-center" v-if="($t('check') == 'cz')">
+                            <strong>{{$t("eshop.totalPrice")}}/{{$t("eshop.withVat")}}: {{totalPrice}} {{getCurrencyByCountry($t('check')).name}} / {{Math.round(totalPriceWithVat,0)}} {{getCurrencyByCountry($t('check')).name}}</strong>
+                            <button type="button" class="btn badge-info ml-2 " style="border-color: #ddd;" v-on:click="print()"><i class="fas fa-print"></i> {{$t("labels.printOrder")}}</button>
+                        </div>
+
+                        <div class="text-center" v-if="($t('check') == 'en')">
+                            <strong>{{$t("eshop.totalPrice")}}/{{$t("eshop.withVat")}}: {{totalPrice}} {{getCurrencyByCountry($t('check')).name}} / {{Math.round(totalPriceWithVat * 100,2)/100 }} {{getCurrencyByCountry($t('check')).name}}</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!--STEP 4-->
+                <div class="col-md-12 d-flex justify-content-center" v-if="orderStep == 4">
+                    <div class="mailbox-controls d-flex justify-content-center">
+                        <br /><br />
+                        <h3 class="profile-username text-center">{{$t("eshop.thanksForOrder")}}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

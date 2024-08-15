@@ -1,0 +1,41 @@
+<aside class="main-sidebar elevation-4" :class="sidebarSkin">
+    <router-link to="/" class="brand-link" style="min-height:57px">
+        <img id="logoGS" 
+            src="@/assets/img/groupwearesolutions.png"
+            class="brand-image"
+            style="height:50px;max-height: 50px; opacity: 0.8; margin-left: 5px; position: fixed; top: 6px; display:none; "
+        />
+        <span class="brand-text font-weight-light">
+            <div id="labelGS" class="center company">{{$t("labels.company")}}</div>
+            <span id="tagBall">
+                <tags-ball v-bind:style='{"border":"0px solid black","margin-top":"20px"}' :width='230' :height='230' :tags='knowledgeLanguages' :color='earthItemsColor' />
+            </span>
+        </span>
+    </router-link>
+
+    <div class="sidebar">
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex" v-if="user">
+            <div class="image">
+                <img
+                    :src="(user && user.picture) ? user.picture : require('@/assets/img/default-profile.png')"
+                    class="img-circle elevation-2"
+                    alt="User Image"
+                />
+            </div>
+            <div class="info">
+                <router-link to="/profile" class="d-block">
+                    {{user && ((user.name + user.surname).length > 0) ? user.name + ' ' + user.surname : user.email }}
+                </router-link>
+            </div>
+        </div>
+
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column"
+                data-widget="treeview"
+                role="menu"
+                data-accordion="false">
+                <app-menu-item v-for="item in menu" :menuItem="item"></app-menu-item>
+            </ul>
+        </nav>
+    </div>
+</aside>

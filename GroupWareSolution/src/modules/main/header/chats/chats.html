@@ -1,0 +1,53 @@
+<app-dropdown size="lg" v-on:click="readAll()">
+    <template v-slot:dropdown-button>
+        <i class="far fa-comments"></i>
+        <span class="badge badge-warning navbar-badge-left" v-if="(chatNotReaded > 0)">{{chatNotReaded}}</span>
+        <span class="badge badge-success navbar-badge" v-if="(chatReaded > 0)">{{chatReaded}}</span>
+    </template>
+    <template v-slot:dropdown-menu>
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+        <div class="container">
+            <div class="row bootstrap snippets bootdeys">
+
+                <div class="box box-primary direct-chat direct-chat-primary">
+
+                    <div class="box-body">
+                        <div class="direct-chat-messages">
+                            <div class="direct-chat-msg" :class="{right: message.fromEmail.toLowerCase() != user.email.toLowerCase()}" v-for="message in chat">
+                                <div class="direct-chat-info clearfix">
+                                    <span class="direct-chat-name pull-left" v-if="(message.fromEmail.toLowerCase() == user.email.toLowerCase())">{{ (user.isAdmin) ? message.fromEmail : message.fromName }}</span>
+                                    <span class="direct-chat-name pull-right" v-else>{{ (user.isAdmin) ? message.fromEmail : message.fromName }}</span>
+
+                                    <span class="direct-chat-timestamp pull-right" v-if="(message.fromEmail.toLowerCase() == user.email.toLowerCase())">{{new Date(message.timestamp).toLocaleDateString("cs-CZ").replace(/\s+/g, '') + $t("labels.in") + new Date(message.timestamp).toLocaleTimeString("cs-CZ")}}</span>
+                                    <span class="direct-chat-timestamp pull-left" v-else>{{new Date(message.timestamp).toLocaleDateString("cs-CZ").replace(/\s+/g, '') + $t("labels.in") + new Date(message.timestamp).toLocaleTimeString("cs-CZ")}}</span>
+
+                                </div>
+                                <img v-if="(message.fromEmail == user.email)" class="direct-chat-img" :src="(user && user.picture) ? user.picture : '@/assets/img/default-profile.png'" :alt="message.fromName" :title="message.fromName">
+                                <img v-else class="direct-chat-img" src="@/assets/img/groupwearesolutions.png" :alt="message.fromName" :title="message.fromName">
+                                <div class="direct-chat-text">
+                                    {{message.message}}
+                                </div>
+                            </div>
+
+                           
+                        </div>
+                    </div>
+
+                    <div class="box-footer">
+                        <div class="input-group" v-if="user.isAdmin">
+                            <input type="text" name="toEmail" :placeholder="$t('labels.writeRecipientsEmail')" class="form-control" v-model="toEmail" :disabled="(!chatEnabled || !user.isAdmin)" v-if="user.isAdmin">
+                        </div>
+
+                        <div class="input-group">
+                            <input type="text" name="message" :placeholder="$t('labels.writeQuestion')" class="form-control" v-model="ownMessage" :disabled="!chatEnabled">
+                            <span class="input-group-btn">
+                                <button v-on:click="sendMessage()" class="btn btn-primary btn-flat" :disabled="(v$.$invalid || !chatEnabled)">{{ $t("labels.send") }}</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </template>
+</app-dropdown>

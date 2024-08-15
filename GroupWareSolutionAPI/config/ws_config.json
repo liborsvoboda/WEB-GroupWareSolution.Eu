@@ -1,0 +1,20 @@
+{
+  "host": "groupware-solution.eu",
+  "port": 3000,
+  "ssl": {
+    "key": "/letsEncrypt/groupware-solution.eu-le.key",
+    "cert": "/letsEncrypt/groupware-solution.eu-le.crt"
+  },
+  "db": {
+    "host": "127.0.0.1",
+    "type": "mysql",
+    "dbname": "c1webpages",
+    "user": "c1svoboda",
+    "password": "Ubuntu1980",
+    "poolMin": 0,
+    "poolMax": 30,
+    "poolAcquire": 1000000,
+    "poolIdle": 10000,
+    "timeout": 1800000
+  }
+}

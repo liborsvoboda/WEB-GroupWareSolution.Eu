@@ -1,0 +1,50 @@
+﻿<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-4">
+                <h1>{{$t(calendarName)}}</h1>
+            </div>
+            <div class="col-sm-4 text-center">
+                <button v-on:click="createCalendar()" class="btn btn-primary btn-flat">{{ $t("labels.newCalendar") }}</button>
+                <button v-on:click="deleteCalendar()" v-if="calendarName != 'Default'" class="btn btn-primary btn-flat ml-2">{{ $t("labels.deleteCalendar") }}</button>
+            </div>
+            <div class="col-sm-4">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><router-link to="/">{{$t("labels.home")}}</router-link></li>
+                    <li class="breadcrumb-item active">{{$t(calendarName)}}</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-primary">
+                    <div id="fullCalendar" class="card-body p-0">
+                        <!--<label>
+                            <input type='checkbox'
+                                   :checked='calendarOptions.weekends'
+                                   @change='handleWeekendsToggle' />
+                            toggle weekends
+                        </label>-->
+                        <FullCalendar id="calendar" ref="calendar"
+                                        :options="calendarOptions" contenteditable="true">
+                            <!--<template #eventContent="{ timeText, event }" >
+                                <b>{{ timeText }}</b>
+                                <div>{{ event.title }}</div>
+                                <div v-if="event.url.length > 0">"URL:"{{ event.url }}</div>
+                            </template>-->
+                        </FullCalendar>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

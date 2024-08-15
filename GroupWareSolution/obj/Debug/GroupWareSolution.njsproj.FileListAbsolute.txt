@@ -1,0 +1,5 @@
+E:\Projekty\MyGitHub\KZToGroupWareSolution\GroupWareSolution\obj\Debug\GroupWareSolution.njsproj.CoreCompileInputs.cache
+E:\Projekty\MyGitHub\KZToGroupWareSolution\GroupWareSolution\bin\Microsoft.NodejsTools.WebRole.dll
+E:\Projekty\MyGitHub\GroupWareSolution\GroupWareSolution\obj\Debug\GroupWareSolution.njsproj.AssemblyReference.cache
+E:\Projekty\MyGitHub\GroupWareSolution\GroupWareSolution\obj\Debug\GroupWareSolution.njsproj.CoreCompileInputs.cache
+E:\Projekty\MyGitHub\GroupWareSolution\GroupWareSolution\bin\Microsoft.NodejsTools.WebRole.dll

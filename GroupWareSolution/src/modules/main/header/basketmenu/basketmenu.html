@@ -1,0 +1,22 @@
+<app-dropdown size="lg">
+    <template v-slot:dropdown-button>
+        <i class="fas fa-shopping-cart fa-lg" v-on:dblclick="gotoBasket();"></i>
+        <span class="badge badge-warning navbar-badge-left" style="bottom: 5px; top: 22px;" v-if="basketCount > 0"><strong>{{basketCount}}</strong></span>
+        <span class="badge badge-success navbar-badge" style="bottom: 5px; top: 22px;" v-if="basketCount > 0"><strong>{{Math.round(basketPrice,0)}}</strong></span>
+    </template>
+    <template v-slot:dropdown-menu>
+        <div class="dropdown-item" 
+             style="display: inline-flex;"
+             v-for="item,index in basketItems"
+             v-if="basketItems.length > 0"
+             >
+            <div class="pointer" style="padding-right: 5px;" v-on:click="RemoveBasket(index)"><i class="far fa-trash-alt"></i></div>
+            <a style="display: inline-flex; "
+                v-on:click="showEshopItem(item.id,item.amount,index,item.note)"
+               >
+                <span v-if="($t('check') == 'cz')">{{item.name_cz}} - {{item.amount}}/{{Math.round(item.amount * (item.price * (1 / getCurrencyByCountry($t('check')).value) * (1 + getVatById(item.vatId).value)),0)}}</span>
+                <span v-if="($t('check') == 'en')">{{item.name_en}} - {{item.amount}}/{{Math.round(item.amount * (item.price * (1 / getCurrencyByCountry($t('check')).value) * (1 + getVatById(item.vatId).value)),0)}}</span>
+            </a>
+        </div>
+    </template>
+</app-dropdown>

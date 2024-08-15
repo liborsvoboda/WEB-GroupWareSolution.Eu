@@ -1,0 +1,251 @@
+sudo apt update
+sudo apt upgrade -y
+sudo apt install build-essential -y
+CD
+cd /home/
+ls
+cd..
+cd/
+cd..
+cd /
+curl -fsSL https://deb.nodesource.com/setup_current.x | sudo -E bash -
+sudo apt-get update
+sudo apt install nodejs -y
+node -v
+npm -v
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+nvm --version
+ls
+nvm list-remote
+nvm list-remote
+cd /home/
+ls
+dir
+cd/
+cd
+cd var
+cd /root/
+ls
+cd
+cd /var/
+ls
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+nvm use system
+export NVM_DIR="$HOME/.nvm"
+nvm use system
+cd /home/
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+nvm --version
+sudo apt-get update
+nvm
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | sudo -E bash -
+nvm
+apt-get install mc
+sudo mc
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+node -v
+sudo npm i -g pm2
+pm2
+cd
+cd /tmp
+wget https://www.ispconfig.org/downloads/ISPConfig-3.2.6.tar.gz
+tar xvfz ISPConfig-3.2.6.tar.gz
+cd ispconfig3_install/install
+php -q update.php
+hostname
+systemctl reboot
+nvm
+nvm ls
+nvm --version
+nvm list-remote
+nvm install v16.13.1
+nvm ls
+sudo mc
+nano /etc/hostname
+hostname -f
+nano /etc/hostname
+sudo mc
+hostname
+hostname -f
+¨udo mc
+sudo mc
+hostname
+systemctl reboot
+sudo apt update && sudo  apt upgrade
+wget -O - https://get.ispconfig.org | sh -s -- --help
+wget -O - https://get.ispconfig.org | sh -s -- --use-ftp-ports=40110-40210 --unattended-upgrades
+hostname -f
+sudo mc
+systemctl reboot
+hostname -f
+hostname
+hostname -f
+wget -O - https://get.ispconfig.org | sh -s -- --help
+hostname -f
+hostname -f
+hostname -f
+hostname -f
+hostname -f
+sudo mc
+systemctl reboot
+hostname -f
+wget -O - https://get.ispconfig.org | sh -s -- --help
+wget -O - https://get.ispconfig.org | sh -s -- --use-ftp-ports=40110-40210 --unattended-upgrades
+apt update && apt upgrade
+hostname -f
+sudo mc
+systemctl reboot
+hostname -f
+hostname
+sudo mc
+sudo mc
+a2enmod ssl
+sudo mc
+hostname -f
+ping groupware-solution.eu
+ping server1.groupware-solution.eu
+hostnamectl
+sudo hostnamectl set-hostname server1.grouopware-solution.eu
+sudo hostnamectl set-hostname server1.groupware-solution.eu
+sudo mc
+hostname
+hostnamectl
+wget -O - https://get.ispconfig.org | sh -s -- --use-ftp-ports=40110-40210 --unattended-upgrades
+ Your ISPConfig admin password is: U4YHjjdyV8MaXSk
+[INFO] Your MySQL root password is: D5nUwPYz1JZv4CkA2d69
+apt-get remove --purge exim4 exim4-base exim4-config exim4-daemon-light
+apt-get install libc6-i686 sudo libidn11 curl fetchmail libgmp3c2 libexpat1 libgetopt-mixed-perl libxml2 libstdc++6 libpcre3 libltdl3 ssh
+cd /tmp/
+wget http://files.zimbra.com/downloads/5.0.2_GA/zcs-8.8.12_GA_3794.RHEL6_64.20190329045002.tgz
+wget http://files.zimbra.com/downloads/8.8.12_GA/zcs-8.8.12_GA_3794.RHEL6_64.20190329045002.tgz
+tar xvfz zcs-8.8.12_GA_3794.RHEL6_64.20190329045002.tgz
+cd /tmp/zcs-8.8.12_GA_3794.RHEL6_64.20190329045002
+./install.sh -l
+./install.sh
+./install.sh
+cd..
+cd
+cd /tmp/
+wget http://files.zimbra.com/downloads/7.2.3_GA/zcs-7.2.3_GA_2872.DEBIAN5_64.20130304144832.tgz
+cd /tmp/7.2.3_GA/zcs-7.2.3_GA_2872.DEBIAN5_64.20130304144832
+tar xvfz zcs-7.2.3_GA_2872.DEBIAN5_64.20130304144832.tgz
+cd /tmp/7.2.3_GA/zcs-7.2.3_GA_2872.DEBIAN5_64.20130304144832
+cd /tmp/zcs-7.2.3_GA_2872.DEBIAN5_64.20130304144832
+./install.sh -l
+./install.sh
+sudo apt-get install  libgmp3c2
+apt-get install vim screen sudo lib32gmp3-dev libgmp3-dev sysstat libexpat1 libidn11 perl-modules wget lzma
+apt-cross --install libmpfr-dev
+sudo apt-ge install dpkg-cross
+sudo apt-get install dpkg-cross
+apt-cross --install libmpfr-dev
+sudo apt-get install apt-cross
+./install.sh
+sudo apt-get update
+sudo apt-get install libgmp3c2
+cd /tmp/
+wget http://launchpadlibrarian.net/70575439/libgmp3c2_4.3.2+dfsg-2ubuntu1_amd64.deb
+sudo dpkg -i http://launchpadlibrarian.net/70575439/libgmp3c2_4.3.2+dfsg-2ubuntu1_amd64.deb
+sudo dpkg -i libgmp3c2_4.3.2+dfsg-2ubuntu1_amd64.deb
+cd /tmp/zcs-7.2.3_GA_2872.DEBIAN5_64.20130304144832
+./install.sh
+./install.sh --platform-override
+sudo apt-get install -y netcat-openbsd sudo libidn11 libpcre3 libgmp10 libexpat1 libstdc++6 libperl5.18 libaio1 resolvconf unzip pax sysstat sqlite3
+cd
+¨
+sudo mc
+logout
+ls
+sudo mc
+cd groupwaresolutionAPI/
+pm2 start server.js -watch
+pm2 watch
+pm2
+pm2 examples
+pm2 ls
+pm2 start server.js --watch
+pm2 ls
+pm2 start server.js --watch
+pm2 start api_server.js --watch
+pm2 delete 0
+pm2 monit\
+pm2 monit
+sudo mc
+npm install
+pm2 monit
+sudo mc
+pm2 monit
+sudo mc
+pm2 monit
+sudo mc
+pm2 monit
+pm2 monit
+pm2 monit
+pm2 delete all
+pm2 start ecosystem.config.js --watch
+pm2 monit
+pm2 start ecosystem.config.js --watch
+pm2 start ecosystem.config.js --watch
+pm2 save
+pm2 monit
+npm install
+sudo mc
+npm install
+pm2 monit
+sudo mc
+pm2 monit
+sudo mc
+pm2 monit
+pm2 monit
+cd groupwaresolutionAPI/
+npm install
+pm2 monit
+sudo mc
+pm2 monit
+pm2 monit
+pm2 monit
+pm2 monit
+npm i -g vue-recaptcha-v3
+dir
+ls
+sudo mc
+pm2 monit
+mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root mysql
+mysql_tzinfo_to_sql /usr/share/zoneinfo/Europe/Prague Europe/Prague | mysql -u root mysql
+reboot now
+sudo mc
+reboot now
+sudo mc
+reboot now
+sudo mc
+sudo rm /etc/localtime
+sudo ln -s /usr/share/zoneinfo/Europe/Prague /etc/localtime
+sudo rm /etc/localtime
+sudo ln -s /usr/share/zoneinfo/Europe/Prague /etc/localtime
+sudo mc
+reboot now
+pm2 monit
+cd groupwaresolutionAPI/
+sudo pm2 start ecosystem.config.js --watch
+sudo pm2 save
+reboot
+pm2 monit
+sudo pm2 monit
+sudo pm2 start ecosystem.config.js
+cd groupwaresolutionAPI/
+sudo pm2 start ecosystem.config.js
+pm2 save
+pm2 startup
+pm2 save
+reboot
+pm2 monit
+cd groupwaresolutionAPI/
+sudo pm2 start ecosystem.config.js --watch
+sudo pm2 delete All
+sudo pm2 deleteall
+sudo pm2 deleteAll
+sudo pm2 delete all
+sudo pm2 start ecosystem.config.js --watch
+pm2 startup
+pm2 save
+reboot now

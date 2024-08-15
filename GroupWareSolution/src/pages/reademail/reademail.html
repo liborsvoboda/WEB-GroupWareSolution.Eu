@@ -1,0 +1,72 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>{{ $t("labels.readEmail") }}</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item" v-if="($store.state.selectedMail.direction == 'to')"><router-link to="/inbox">{{$t("labels.inbox")}}</router-link></li>
+                    <li class="breadcrumb-item" v-if="($store.state.selectedMail.direction == 'from')"><router-link to="/sent">{{$t("labels.sent")}}</router-link></li>
+                    <li class="breadcrumb-item active">{{ $t("labels.emailDetail") }}</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-primary card-outline">
+                <div class="card-header">
+                    <h3 class="card-title">{{$t("labels.emailDetail")}}</h3>
+
+                    <div class="card-tools">
+                        <router-link to="/inbox" class="btn btn-default" v-if="($store.state.selectedMail.direction == 'to')"><i class="fas fa-undo-alt"></i> {{$t("labels.backToInbox")}}</router-link>
+                        <router-link to="/sent" class="btn btn-default" v-if="($store.state.selectedMail.direction == 'from')"><i class="fas fa-undo-alt"></i> {{$t("labels.backToSent")}}</router-link>
+                    </div>
+                </div>
+                <div class="card-body p-0">
+                    <div class="mailbox-read-info">
+                        <h6>
+                            <span class="mailbox-read-time float-right">{{new Date(email.timestamp).toLocaleDateString("cs-CZ").replace(/\s+/g, '') + $t("labels.in") + new Date(email.timestamp).toLocaleTimeString("cs-CZ")}}</span>
+                            {{$t("labels.from")}}: {{email.fromEmail}} <br />
+                            {{$t("labels.to")}}: {{email.toEmail}}
+                        </h6>
+                        <h5>{{$t("labels.subject")}}: {{email.subject}}</h5>
+                    </div>
+                    <div class="mailbox-read-message">
+                        {{email.content}}
+                        <br />
+                        <br />
+                    </div>
+                </div>
+
+                <div class="card-footer">
+                    <p>
+                        <h3 class="card-title">{{$t("labels.attachments")}}</h3>
+                    </p>
+                    <br />
+                    <ul>
+                        <li v-for="file,index in email.attachments" style="list-style-type: none;" class="pointer" v-on:click="downloadFile(index)">
+                            <i class="fas fa-cloud-download-alt" :title="$t('labels.downloadAttachment')"></i><span style="padding-left:7px;">{{file.fileName}} {{parseFloat(file.size/1048576).toFixed(2)}} MB</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="card-footer">
+                    <div class="float-right">
+                        <button type="button" class="btn btn-default" v-on:click="replyTo()"><i class="fas fa-reply"></i> {{$t("labels.reply")}}</button>
+                        <button type="button" class="btn btn-default" v-on:click="forwardTo()"><i class="fas fa-share"></i> {{$t("labels.forward")}}</button>
+                    </div>
+                    <!--<button type="button" class="btn btn-default"><i class="far fa-trash-alt"></i> Delete</button>-->
+                    <!--<button type="button" class="btn btn-default"><i class="fas fa-print"></i> Print</button>-->
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

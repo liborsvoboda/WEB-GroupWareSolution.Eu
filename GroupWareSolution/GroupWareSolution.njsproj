@@ -1,0 +1,578 @@
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">14.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <Name>GroupWareSolution</Name>
+    <RootNamespace>GroupWareSolution</RootNamespace>
+    <EnableTypeScript>true</EnableTypeScript>
+    <TypeScriptSourceMap>true</TypeScriptSourceMap>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>7dd515ef-5746-43bc-ac94-2090e8493932</ProjectGuid>
+    <ProjectHome>
+    </ProjectHome>
+    <StartupFile>vue.config.js</StartupFile>
+    <SearchPath>
+    </SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <ProjectTypeGuids>{3AF33F2E-1136-4D97-BBB7-1795711AC8B8};{349c5851-65df-11da-9384-00065b846f21};{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}</ProjectTypeGuids>
+    <NodejsPort>1337</NodejsPort>
+    <StartWebBrowser>true</StartWebBrowser>
+    <ScriptArguments>serve</ScriptArguments>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>
+      npm run build
+    </PostBuildEvent>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="dist\" />
+    <Folder Include="dist\css\" />
+    <Folder Include="dist\fonts\" />
+    <Folder Include="dist\img\" />
+    <Folder Include="dist\js\" />
+    <Folder Include="public\" />
+    <Folder Include="public\css\font\" />
+    <Folder Include="public\js\" />
+    <Folder Include="public\css\" />
+    <Folder Include="public\img\" />
+    <Folder Include="src\" />
+    <Folder Include="src\app\" />
+    <Folder Include="src\assets\" />
+    <Folder Include="src\assets\icons\" />
+    <Folder Include="src\assets\img\" />
+    <Folder Include="src\components\" />
+    <Folder Include="src\components\button\" />
+    <Folder Include="src\components\checkbox\" />
+    <Folder Include="src\components\dropdown\" />
+    <Folder Include="src\components\dropdown\dropdown-menu\" />
+    <Folder Include="src\components\input\" />
+    <Folder Include="src\components\menu-item\" />
+    <Folder Include="src\components\select\" />
+    <Folder Include="src\interfaces\" />
+    <Folder Include="src\modules\" />
+    <Folder Include="src\modules\forgotpassword\" />
+    <Folder Include="src\modules\login\" />
+    <Folder Include="src\modules\main\" />
+    <Folder Include="src\modules\main\control-sidebar\" />
+    <Folder Include="src\modules\main\footer\" />
+    <Folder Include="src\modules\main\header\" />
+    <Folder Include="src\modules\main\header\languages\" />
+    <Folder Include="src\modules\main\header\chats\" />
+    <Folder Include="src\modules\main\header\emails\" />
+    <Folder Include="src\modules\main\header\basketmenu\" />
+    <Folder Include="src\modules\main\header\notifications\" />
+    <Folder Include="src\modules\main\header\user\" />
+    <Folder Include="src\modules\main\menu-sidebar\" />
+    <Folder Include="src\modules\privacy-policy\" />
+    <Folder Include="src\modules\resetpassword\" />
+    <Folder Include="src\modules\register\" />
+    <Folder Include="src\pages\" />
+    <Folder Include="src\pages\blank\" />
+    <Folder Include="src\pages\dashboard\" />
+    <Folder Include="src\pages\main-menu\" />
+    <Folder Include="src\pages\contactus\" />
+    <Folder Include="src\pages\inbox\" />
+    <Folder Include="src\pages\contentEditor\" />
+    <Folder Include="src\pages\multiplatform\" />
+    <Folder Include="src\pages\databridges\" />
+    <Folder Include="src\pages\desktopapplications\" />
+    <Folder Include="src\pages\controlingbi\" />
+    <Folder Include="src\pages\graphicsapp\" />
+    <Folder Include="src\pages\apiimplementation\" />
+    <Folder Include="src\pages\customappweb\" />
+    <Folder Include="src\pages\backuping\" />
+    <Folder Include="src\pages\awards\" />
+    <Folder Include="src\pages\eshop\" />
+    <Folder Include="src\pages\manageEshopItems\" />
+    <Folder Include="src\pages\eshopItemEdit\" />
+    <Folder Include="src\pages\eshopItemDetail\" />
+    <Folder Include="src\pages\basket\" />
+    <Folder Include="src\pages\calendar\" />
+    <Folder Include="src\pages\easydatacenter\" />
+    <Folder Include="src\pages\easybuilder\" />
+    <Folder Include="src\pages\documentation\" />
+    <Folder Include="src\pages\photogallery\" />
+    <Folder Include="src\pages\productsdevelopment\" />
+    <Folder Include="src\pages\pricelist\" />
+    <Folder Include="src\pages\references\" />
+    <Folder Include="src\pages\specifichw\" />
+    <Folder Include="src\pages\opensolutions\" />
+    <Folder Include="src\pages\remotesupport\" />
+    <Folder Include="src\pages\webapplications\" />
+    <Folder Include="src\pages\plc\" />
+    <Folder Include="src\pages\servers\" />
+    <Folder Include="src\pages\writeemail\" />
+    <Folder Include="src\pages\reademail\" />
+    <Folder Include="src\pages\sent\" />
+    <Folder Include="src\pages\profile\" />
+    <Folder Include="src\router\" />
+    <Folder Include="src\services\" />
+    <Folder Include="src\store\" />
+    <Folder Include="src\store\auth\" />
+    <Folder Include="src\store\ui\" />
+    <Folder Include="src\translation\" />
+    <Folder Include="src\utils\" />
+    <Folder Include="tests\" />
+    <Folder Include="tests\e2e\" />
+    <Folder Include="tests\e2e\plugins\" />
+    <Folder Include="tests\e2e\specs\" />
+    <Folder Include="tests\e2e\support\" />
+    <Folder Include="tests\unit\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include=".browserslistrc" />
+    <Content Include=".eslintrc.js" />
+    <Content Include=".gitignore" />
+    <Content Include=".prettierrc.js" />
+    <Content Include="cypress.json" />
+    <Content Include="deploy.cmd" />
+    <Content Include="dist\css\app.c5521e67.css" />
+    <Content Include="dist\css\chunk-vendors.64db491d.css" />
+    <Content Include="dist\favicon.ico" />
+    <Content Include="dist\fonts\fa-brands-400.1a575a41.woff" />
+    <Content Include="dist\fonts\fa-brands-400.513aa607.ttf" />
+    <Content Include="dist\fonts\fa-brands-400.592643a8.eot" />
+    <Content Include="dist\fonts\fa-brands-400.ed311c7a.woff2" />
+    <Content Include="dist\fonts\fa-regular-400.766913e6.ttf" />
+    <Content Include="dist\fonts\fa-regular-400.b0e2db3b.eot" />
+    <Content Include="dist\fonts\fa-regular-400.b91d376b.woff2" />
+    <Content Include="dist\fonts\fa-regular-400.d1d7e3b4.woff" />
+    <Content Include="dist\fonts\fa-solid-900.0c6bfc66.eot" />
+    <Content Include="dist\fonts\fa-solid-900.b9625119.ttf" />
+    <Content Include="dist\fonts\fa-solid-900.d745348d.woff" />
+    <Content Include="dist\fonts\fa-solid-900.d824df7e.woff2" />
+    <Content Include="dist\img\default-profile.b80a382d.png" />
+    <Content Include="dist\img\fa-brands-400.1d5619cd.svg" />
+    <Content Include="dist\img\fa-regular-400.c5d109be.svg" />
+    <Content Include="dist\img\fa-solid-900.37bc7099.svg" />
+    <Content Include="dist\img\file.png" />
+    <Content Include="dist\img\halfStar.png" />
+    <Content Include="dist\img\logo.28f7e31d.png" />
+    <Content Include="dist\img\star.png" />
+    <Content Include="dist\index.html" />
+    <Content Include="dist\js\app.d626448e.js" />
+    <Content Include="dist\js\app.d626448e.js.map" />
+    <Content Include="dist\js\chunk-vendors.755f7409.js" />
+    <Content Include="dist\js\chunk-vendors.755f7409.js.map" />
+    <Content Include="jest.config.js" />
+    <Content Include="LICENSE" />
+    <Content Include="package.json" />
+    <Content Include="public\.htaccess" />
+    <Content Include="public\css\bootstrap.css" />
+    <Content Include="public\css\bootstrap.css.map" />
+    <Content Include="public\css\cloud.css" />
+    <Content Include="public\css\cloud.css.map" />
+    <Content Include="public\css\cloud.less" />
+    <Content Include="public\img\cloud1.png" />
+    <Content Include="public\img\cloud2.png" />
+    <Content Include="public\img\cloud3.png" />
+    <Content Include="public\img\cloud4.png" />
+    <Content Include="public\img\cloud5.png" />
+    <Content Include="public\img\portal.png" />
+    <Content Include="public\css\font\summernote.eot" />
+    <Content Include="public\css\font\summernote.ttf" />
+    <Content Include="public\css\font\summernote.woff" />
+    <Content Include="public\css\font\summernote.woff2" />
+    <Content Include="public\css\summernote.css" />
+    <Content Include="public\favicon.ico" />
+    <Content Include="public\index.html" />
+    <Content Include="public\js\additional-methods.js" />
+    <Content Include="public\js\additional-methods.min.js" />
+    <Content Include="public\js\cloud.js" />
+    <Content Include="public\js\bootstrap.js" />
+    <Content Include="public\js\bootstrap.js.map" />
+    <Content Include="public\js\bootstrap.min.js" />
+    <Content Include="public\js\bootstrap.min.js.map" />
+    <Content Include="public\js\gapi.js" />
+    <Content Include="public\js\jquery-3.6.0.min.js" />
+    <Content Include="public\js\jquery-3.6.0.min.map" />
+    <Content Include="public\js\jquery.validate.js" />
+    <Content Include="public\js\jquery.validate.min.js" />
+    <Content Include="public\js\popper.js" />
+    <Content Include="public\js\popper.js.map" />
+    <Content Include="public\js\popper.min.js" />
+    <Content Include="public\js\popper.min.js.map" />
+    <Content Include="public\js\summernote.js" />
+    <Content Include="README.md" />
+    <Content Include="src\app\app.html" />
+    <Content Include="src\app\app.scss" />
+    <Content Include="src\app\app.vue" />
+    <Content Include="src\assets\icons\android-icon-144x144.png" />
+    <Content Include="src\assets\icons\android-icon-192x192.png" />
+    <Content Include="src\assets\icons\android-icon-36x36.png" />
+    <Content Include="src\assets\icons\android-icon-48x48.png" />
+    <Content Include="src\assets\icons\android-icon-72x72.png" />
+    <Content Include="src\assets\icons\android-icon-96x96.png" />
+    <Content Include="src\assets\icons\apple-icon-114x114.png" />
+    <Content Include="src\assets\icons\apple-icon-120x120.png" />
+    <Content Include="src\assets\icons\apple-icon-144x144.png" />
+    <Content Include="src\assets\icons\apple-icon-152x152.png" />
+    <Content Include="src\assets\icons\apple-icon-180x180.png" />
+    <Content Include="src\assets\icons\apple-icon-57x57.png" />
+    <Content Include="src\assets\icons\apple-icon-60x60.png" />
+    <Content Include="src\assets\icons\apple-icon-72x72.png" />
+    <Content Include="src\assets\icons\apple-icon-76x76.png" />
+    <Content Include="src\assets\icons\apple-icon-precomposed.png" />
+    <Content Include="src\assets\icons\apple-icon.png" />
+    <Content Include="src\assets\icons\favicon-16x16.png" />
+    <Content Include="src\assets\icons\favicon-32x32.png" />
+    <Content Include="src\assets\icons\favicon-96x96.png" />
+    <Content Include="src\assets\icons\favicon.ico" />
+    <Content Include="src\assets\icons\ms-icon-144x144.png" />
+    <Content Include="src\assets\icons\ms-icon-150x150.png" />
+    <Content Include="src\assets\icons\ms-icon-310x310.png" />
+    <Content Include="src\assets\icons\ms-icon-70x70.png" />
+    <Content Include="src\assets\img\default-profile.png" />
+    <Content Include="src\assets\img\emptyStar.png" />
+    <Content Include="src\assets\img\female.jpg" />
+    <Content Include="src\assets\img\file.png" />
+    <Content Include="src\assets\img\groupwaresolutions1.png" />
+    <Content Include="src\assets\img\groupwearesolutions.png" />
+    <Content Include="src\assets\img\halfStar.png" />
+    <Content Include="src\assets\img\logo.png" />
+    <Content Include="src\assets\img\male.jpg" />
+    <Content Include="src\assets\img\star.png" />
+    <Content Include="src\components\button\button.html" />
+    <Content Include="src\components\button\button.scss" />
+    <Content Include="src\components\button\button.vue" />
+    <Content Include="src\components\checkbox\checkbox.html" />
+    <Content Include="src\components\checkbox\checkbox.scss" />
+    <Content Include="src\components\checkbox\checkbox.vue" />
+    <Content Include="src\components\dropdown\dropdown-menu\dropdown-menu.html" />
+    <Content Include="src\components\dropdown\dropdown-menu\dropdown-menu.scss" />
+    <Content Include="src\components\dropdown\dropdown-menu\dropdown-menu.vue" />
+    <Content Include="src\components\dropdown\dropdown.html" />
+    <Content Include="src\components\dropdown\dropdown.scss" />
+    <Content Include="src\components\dropdown\dropdown.vue" />
+    <Content Include="src\components\input\input.html" />
+    <Content Include="src\components\input\input.scss" />
+    <Content Include="src\components\input\input.vue" />
+    <Content Include="src\components\menu-item\menu-item.html" />
+    <Content Include="src\components\menu-item\menu-item.scss" />
+    <Content Include="src\components\menu-item\menu-item.vue" />
+    <Content Include="src\components\select\select.html" />
+    <Content Include="src\components\select\select.scss" />
+    <Content Include="src\components\select\select.vue" />
+    <Content Include="src\index.scss" />
+    <Content Include="src\modules\forgotpassword\forgotpassword.html" />
+    <Content Include="src\modules\forgotpassword\forgotpassword.scss" />
+    <Content Include="src\modules\forgotpassword\forgotpassword.vue" />
+    <Content Include="src\modules\login\login.html" />
+    <Content Include="src\modules\login\login.scss" />
+    <Content Include="src\modules\login\login.vue" />
+    <Content Include="src\modules\main\control-sidebar\control-sidebar.html" />
+    <Content Include="src\modules\main\control-sidebar\control-sidebar.scss" />
+    <Content Include="src\modules\main\control-sidebar\control-sidebar.vue" />
+    <Content Include="src\modules\main\footer\footer.html" />
+    <Content Include="src\modules\main\footer\footer.scss" />
+    <Content Include="src\modules\main\footer\footer.vue" />
+    <Content Include="src\modules\main\header\basketmenu\basketmenu.html" />
+    <Content Include="src\modules\main\header\basketmenu\basketmenu.scss" />
+    <Content Include="src\modules\main\header\basketmenu\basketmenu.vue" />
+    <Content Include="src\modules\main\header\emails\emails.html" />
+    <Content Include="src\modules\main\header\emails\emails.scss" />
+    <Content Include="src\modules\main\header\emails\emails.vue" />
+    <Content Include="src\modules\main\header\header.html" />
+    <Content Include="src\modules\main\header\header.scss" />
+    <Content Include="src\modules\main\header\header.vue" />
+    <Content Include="src\modules\main\header\languages\languages.html" />
+    <Content Include="src\modules\main\header\languages\languages.scss" />
+    <Content Include="src\modules\main\header\languages\languages.vue" />
+    <Content Include="src\modules\main\header\chats\chats.html" />
+    <Content Include="src\modules\main\header\chats\chats.scss" />
+    <Content Include="src\modules\main\header\chats\chats.vue" />
+    <Content Include="src\modules\main\header\notifications\notifications.html" />
+    <Content Include="src\modules\main\header\notifications\notifications.scss" />
+    <Content Include="src\modules\main\header\notifications\notifications.vue" />
+    <Content Include="src\modules\main\header\user\user.html" />
+    <Content Include="src\modules\main\header\user\user.scss" />
+    <Content Include="src\modules\main\header\user\user.vue" />
+    <Content Include="src\modules\main\main.html" />
+    <Content Include="src\modules\main\main.scss" />
+    <Content Include="src\modules\main\main.vue" />
+    <Content Include="src\modules\main\menu-sidebar\menu-sidebar.html" />
+    <Content Include="src\modules\main\menu-sidebar\menu-sidebar.scss" />
+    <Content Include="src\modules\main\menu-sidebar\menu-sidebar.vue" />
+    <Content Include="src\modules\privacy-policy\privacy-policy.html" />
+    <Content Include="src\modules\privacy-policy\privacy-policy.scss" />
+    <Content Include="src\modules\privacy-policy\privacy-policy.vue" />
+    <Content Include="src\modules\resetpassword\resetpassword.html" />
+    <Content Include="src\modules\resetpassword\resetpassword.scss" />
+    <Content Include="src\modules\resetpassword\resetpassword.vue" />
+    <Content Include="src\modules\register\register.html" />
+    <Content Include="src\modules\register\register.scss" />
+    <Content Include="src\modules\register\register.vue" />
+    <Content Include="src\pages\apiimplementation\apiimplementation.html" />
+    <Content Include="src\pages\apiimplementation\apiimplementation.scss" />
+    <Content Include="src\pages\apiimplementation\apiimplementation.vue" />
+    <Content Include="src\pages\awards\awards.html" />
+    <Content Include="src\pages\awards\awards.scss" />
+    <Content Include="src\pages\awards\awards.vue" />
+    <Content Include="src\pages\backuping\backuping.html" />
+    <Content Include="src\pages\backuping\backuping.scss" />
+    <Content Include="src\pages\backuping\backuping.vue" />
+    <Content Include="src\pages\basket\basket.html" />
+    <Content Include="src\pages\basket\basket.scss" />
+    <Content Include="src\pages\basket\basket.vue" />
+    <Content Include="src\pages\calendar\calendar.html" />
+    <Content Include="src\pages\calendar\calendar.scss" />
+    <Content Include="src\pages\calendar\calendar.vue" />
+    <Content Include="src\pages\contactus\contactus.html" />
+    <Content Include="src\pages\contactus\contactus.scss" />
+    <Content Include="src\pages\contactus\contactus.vue" />
+    <Content Include="src\pages\blank\blank.html" />
+    <Content Include="src\pages\blank\blank.scss" />
+    <Content Include="src\pages\blank\blank.vue" />
+    <Content Include="src\pages\controlingbi\controlingbi.html" />
+    <Content Include="src\pages\controlingbi\controlingbi.scss" />
+    <Content Include="src\pages\controlingbi\controlingbi.vue" />
+    <Content Include="src\pages\customappweb\customappweb.html" />
+    <Content Include="src\pages\customappweb\customappweb.scss" />
+    <Content Include="src\pages\customappweb\customappweb.vue" />
+    <Content Include="src\pages\dashboard\dashboard.html" />
+    <Content Include="src\pages\dashboard\dashboard.scss" />
+    <Content Include="src\pages\dashboard\dashboard.vue" />
+    <Content Include="src\pages\dashboard\dashboardCarusel.html" />
+    <Content Include="src\pages\dashboard\dashboardCarusel.scss" />
+    <Content Include="src\pages\dashboard\dashboardCarusel.vue" />
+    <Content Include="src\pages\databridges\databridges.html" />
+    <Content Include="src\pages\databridges\databridges.scss" />
+    <Content Include="src\pages\databridges\databridges.vue" />
+    <Content Include="src\pages\desktopapplications\desktopapplications.html" />
+    <Content Include="src\pages\desktopapplications\desktopapplications.scss" />
+    <Content Include="src\pages\desktopapplications\desktopapplications.vue" />
+    <Content Include="src\pages\documentation\documentation.html" />
+    <Content Include="src\pages\documentation\documentation.scss" />
+    <Content Include="src\pages\documentation\documentation.vue" />
+    <Content Include="src\pages\easybuilder\easybuilder.html" />
+    <Content Include="src\pages\easybuilder\easybuilder.scss" />
+    <Content Include="src\pages\easybuilder\easybuilder.vue" />
+    <Content Include="src\pages\easydatacenter\easydatacenter.html" />
+    <Content Include="src\pages\easydatacenter\easydatacenter.scss" />
+    <Content Include="src\pages\easydatacenter\easydatacenter.vue" />
+    <Content Include="src\pages\eshopItemDetail\eshopItemDetail.html" />
+    <Content Include="src\pages\eshopItemDetail\eshopItemDetail.scss" />
+    <Content Include="src\pages\eshopItemDetail\eshopItemDetail.vue" />
+    <Content Include="src\pages\eshopItemEdit\eshopItemEdit.html" />
+    <Content Include="src\pages\eshopItemEdit\eshopItemEdit.scss" />
+    <Content Include="src\pages\eshopItemEdit\eshopItemEdit.vue" />
+    <Content Include="src\pages\eshop\eshop.html" />
+    <Content Include="src\pages\eshop\eshop.scss" />
+    <Content Include="src\pages\eshop\eshop.vue" />
+    <Content Include="src\pages\graphicsapp\graphicsapp.html" />
+    <Content Include="src\pages\graphicsapp\graphicsapp.scss" />
+    <Content Include="src\pages\graphicsapp\graphicsapp.vue" />
+    <Content Include="src\pages\inbox\inbox.html" />
+    <Content Include="src\pages\inbox\inbox.scss" />
+    <Content Include="src\pages\inbox\inbox.vue" />
+    <Content Include="src\pages\main-menu\main-menu.html" />
+    <Content Include="src\pages\main-menu\main-menu.scss" />
+    <Content Include="src\pages\main-menu\main-menu.vue" />
+    <Content Include="src\pages\contentEditor\contentEditor.html" />
+    <Content Include="src\pages\contentEditor\contentEditor.scss" />
+    <Content Include="src\pages\contentEditor\contentEditor.vue" />
+    <Content Include="src\pages\manageEshopItems\manageEshopItems.html" />
+    <Content Include="src\pages\manageEshopItems\manageEshopItems.scss" />
+    <Content Include="src\pages\manageEshopItems\manageEshopItems.vue" />
+    <Content Include="src\pages\multiplatform\multiplatform.html" />
+    <Content Include="src\pages\multiplatform\multiplatform.scss" />
+    <Content Include="src\pages\multiplatform\multiplatform.vue" />
+    <Content Include="src\pages\opensolutions\opensolutions.html" />
+    <Content Include="src\pages\opensolutions\opensolutions.scss" />
+    <Content Include="src\pages\opensolutions\opensolutions.vue" />
+    <Content Include="src\pages\photogallery\photogallery.html" />
+    <Content Include="src\pages\photogallery\photogallery.scss" />
+    <Content Include="src\pages\photogallery\photogallery.vue" />
+    <Content Include="src\pages\plc\plc.html" />
+    <Content Include="src\pages\plc\plc.scss" />
+    <Content Include="src\pages\plc\plc.vue" />
+    <Content Include="src\pages\pricelist\pricelist.html" />
+    <Content Include="src\pages\pricelist\pricelist.scss" />
+    <Content Include="src\pages\pricelist\pricelist.vue" />
+    <Content Include="src\pages\productsdevelopment\productsdevelopment.html" />
+    <Content Include="src\pages\productsdevelopment\productsdevelopment.scss" />
+    <Content Include="src\pages\productsdevelopment\productsdevelopment.vue" />
+    <Content Include="src\pages\profile\profile.html" />
+    <Content Include="src\pages\profile\profile.scss" />
+    <Content Include="src\pages\profile\profile.vue" />
+    <Content Include="src\pages\reademail\reademail.html" />
+    <Content Include="src\pages\reademail\reademail.scss" />
+    <Content Include="src\pages\reademail\reademail.vue" />
+    <Content Include="src\pages\references\references.html" />
+    <Content Include="src\pages\references\references.scss" />
+    <Content Include="src\pages\references\references.vue" />
+    <Content Include="src\pages\remotesupport\remotesupport.html" />
+    <Content Include="src\pages\remotesupport\remotesupport.scss" />
+    <Content Include="src\pages\remotesupport\remotesupport.vue" />
+    <Content Include="src\pages\sent\sent.html" />
+    <Content Include="src\pages\sent\sent.scss" />
+    <Content Include="src\pages\sent\sent.vue" />
+    <Content Include="src\pages\servers\servers.html" />
+    <Content Include="src\pages\servers\servers.scss" />
+    <Content Include="src\pages\servers\servers.vue" />
+    <Content Include="src\pages\specifichw\specifichw.html" />
+    <Content Include="src\pages\specifichw\specifichw.scss" />
+    <Content Include="src\pages\specifichw\specifichw.vue" />
+    <Content Include="src\pages\webapplications\webapplications.html" />
+    <Content Include="src\pages\webapplications\webapplications.scss" />
+    <Content Include="src\pages\webapplications\webapplications.vue" />
+    <Content Include="src\pages\writeemail\writeemail.html" />
+    <Content Include="src\pages\writeemail\writeemail.scss" />
+    <Content Include="src\pages\writeemail\writeemail.vue" />
+    <Content Include="src\services\custom_content_type.ts" />
+    <Content Include="src\translation\en.json" />
+    <Content Include="src\translation\cz.json" />
+    <Content Include="tests\e2e\.eslintrc.js" />
+    <Content Include="tests\e2e\plugins\index.js" />
+    <Content Include="tests\e2e\specs\test.js" />
+    <Content Include="tests\e2e\support\commands.js" />
+    <Content Include="tests\e2e\support\index.js" />
+    <Content Include="tsconfig.json" />
+    <Content Include="vue.config.js">
+      <SubType>Code</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="src\app\app.ts" />
+    <TypeScriptCompile Include="src\components\button\button.ts" />
+    <TypeScriptCompile Include="src\components\checkbox\checkbox.ts" />
+    <TypeScriptCompile Include="src\components\dropdown\dropdown-menu\dropdown-menu.ts" />
+    <TypeScriptCompile Include="src\components\dropdown\dropdown.ts" />
+    <TypeScriptCompile Include="src\components\input\input.ts" />
+    <TypeScriptCompile Include="src\components\menu-item\menu-item.ts" />
+    <TypeScriptCompile Include="src\components\select\select.ts" />
+    <TypeScriptCompile Include="src\interfaces\payload.ts" />
+    <TypeScriptCompile Include="src\interfaces\state.ts" />
+    <TypeScriptCompile Include="src\interfaces\user.ts" />
+    <TypeScriptCompile Include="src\main.ts" />
+    <TypeScriptCompile Include="src\modules\forgotpassword\forgotpassword.ts" />
+    <TypeScriptCompile Include="src\modules\login\login.ts" />
+    <TypeScriptCompile Include="src\modules\main\control-sidebar\control-sidebar.ts" />
+    <TypeScriptCompile Include="src\modules\main\footer\footer.ts" />
+    <TypeScriptCompile Include="src\modules\main\header\basketmenu\basketmenu.ts" />
+    <TypeScriptCompile Include="src\modules\main\header\emails\emails.ts" />
+    <TypeScriptCompile Include="src\modules\main\header\header.ts" />
+    <TypeScriptCompile Include="src\modules\main\header\languages\languages.ts" />
+    <TypeScriptCompile Include="src\modules\main\header\chats\chats.ts" />
+    <TypeScriptCompile Include="src\modules\main\header\notifications\notifications.ts" />
+    <TypeScriptCompile Include="src\modules\main\header\user\user.ts" />
+    <TypeScriptCompile Include="src\modules\main\main.ts" />
+    <TypeScriptCompile Include="src\modules\main\menu-sidebar\menu-sidebar.ts" />
+    <TypeScriptCompile Include="src\modules\privacy-policy\privacy-policy.ts" />
+    <TypeScriptCompile Include="src\modules\resetpassword\resetpassword.ts" />
+    <TypeScriptCompile Include="src\modules\register\register.ts" />
+    <TypeScriptCompile Include="src\pages\apiimplementation\apiimplementation.ts" />
+    <TypeScriptCompile Include="src\pages\awards\awards.ts" />
+    <TypeScriptCompile Include="src\pages\backuping\backuping.ts" />
+    <TypeScriptCompile Include="src\pages\basket\basket.ts" />
+    <TypeScriptCompile Include="src\pages\calendar\calendar.ts" />
+    <TypeScriptCompile Include="src\pages\contactus\contactus.ts" />
+    <TypeScriptCompile Include="src\pages\blank\blank.ts" />
+    <TypeScriptCompile Include="src\pages\controlingbi\controlingbi.ts" />
+    <TypeScriptCompile Include="src\pages\customappweb\customappweb.ts" />
+    <TypeScriptCompile Include="src\pages\dashboard\dashboard.ts" />
+    <TypeScriptCompile Include="src\pages\dashboard\dashboardCarusel.ts" />
+    <TypeScriptCompile Include="src\pages\databridges\databridges.ts" />
+    <TypeScriptCompile Include="src\pages\desktopapplications\desktopapplications.ts" />
+    <TypeScriptCompile Include="src\pages\documentation\documentation.ts" />
+    <TypeScriptCompile Include="src\pages\easybuilder\easybuilder.ts" />
+    <TypeScriptCompile Include="src\pages\easydatacenter\easydatacenter.ts" />
+    <TypeScriptCompile Include="src\pages\eshopItemDetail\eshopItemDetail.ts" />
+    <TypeScriptCompile Include="src\pages\eshopItemEdit\eshopItemEdit.ts" />
+    <TypeScriptCompile Include="src\pages\eshop\eshop.ts" />
+    <TypeScriptCompile Include="src\pages\graphicsapp\graphicsapp.ts" />
+    <TypeScriptCompile Include="src\pages\inbox\inbox.ts" />
+    <TypeScriptCompile Include="src\pages\main-menu\main-menu.ts" />
+    <TypeScriptCompile Include="src\pages\contentEditor\contentEditor.ts" />
+    <TypeScriptCompile Include="src\pages\manageEshopItems\manageEshopItems.ts" />
+    <TypeScriptCompile Include="src\pages\multiplatform\multiplatform.ts" />
+    <TypeScriptCompile Include="src\pages\opensolutions\opensolutions.ts" />
+    <TypeScriptCompile Include="src\pages\photogallery\photogallery.ts" />
+    <TypeScriptCompile Include="src\pages\plc\plc.ts" />
+    <TypeScriptCompile Include="src\pages\pricelist\pricelist.ts" />
+    <TypeScriptCompile Include="src\pages\productsdevelopment\productsdevelopment.ts" />
+    <TypeScriptCompile Include="src\pages\profile\profile.ts" />
+    <TypeScriptCompile Include="src\pages\reademail\reademail.ts" />
+    <TypeScriptCompile Include="src\pages\references\references.ts" />
+    <TypeScriptCompile Include="src\pages\remotesupport\remotesupport.ts" />
+    <TypeScriptCompile Include="src\pages\sent\sent.ts" />
+    <TypeScriptCompile Include="src\pages\servers\servers.ts" />
+    <TypeScriptCompile Include="src\pages\specifichw\specifichw.ts" />
+    <TypeScriptCompile Include="src\pages\webapplications\webapplications.ts" />
+    <TypeScriptCompile Include="src\pages\writeemail\writeemail.ts" />
+    <TypeScriptCompile Include="src\router\index.ts" />
+    <TypeScriptCompile Include="src\services\auth.ts" />
+    <TypeScriptCompile Include="src\services\event-utils.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="src\shims-vue.d.ts" />
+    <TypeScriptCompile Include="src\shims-vuex.d.ts" />
+    <TypeScriptCompile Include="src\store\auth\actions.ts" />
+    <TypeScriptCompile Include="src\store\auth\getters.ts" />
+    <TypeScriptCompile Include="src\store\auth\index.ts" />
+    <TypeScriptCompile Include="src\store\auth\mutations.ts" />
+    <TypeScriptCompile Include="src\store\index.ts" />
+    <TypeScriptCompile Include="src\store\mutation-types.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="src\store\ui\actions.ts" />
+    <TypeScriptCompile Include="src\store\ui\getters.ts" />
+    <TypeScriptCompile Include="src\store\ui\index.ts" />
+    <TypeScriptCompile Include="src\store\ui\mutations.ts" />
+    <TypeScriptCompile Include="src\utils\axios.ts" />
+    <TypeScriptCompile Include="src\utils\helpers.ts" />
+    <TypeScriptCompile Include="src\utils\themes.ts" />
+    <TypeScriptCompile Include="tests\unit\example.spec.ts" />
+  </ItemGroup>
+  <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:48022/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>True</UseCustomServer>
+          <CustomServerUrl>http://localhost:1337</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}" User="">
+        <WebProjectProperties>
+          <StartPageUrl>
+          </StartPageUrl>
+          <StartAction>CurrentPage</StartAction>
+          <AspNetDebugging>True</AspNetDebugging>
+          <SilverlightDebugging>False</SilverlightDebugging>
+          <NativeDebugging>False</NativeDebugging>
+          <SQLDebugging>False</SQLDebugging>
+          <ExternalProgram>
+          </ExternalProgram>
+          <StartExternalURL>
+          </StartExternalURL>
+          <StartCmdLineArguments>
+          </StartCmdLineArguments>
+          <StartWorkingDirectory>
+          </StartWorkingDirectory>
+          <EnableENC>False</EnableENC>
+          <AlwaysStartWebServerOnDebug>False</AlwaysStartWebServerOnDebug>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

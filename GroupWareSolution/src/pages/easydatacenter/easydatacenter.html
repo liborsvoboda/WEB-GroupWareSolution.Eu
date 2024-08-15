@@ -1,0 +1,40 @@
+﻿<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>{{$t("labels.easydatacenter")}}</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><router-link to="/">{{$t("labels.home")}}</router-link></li>
+                    <li class="breadcrumb-item active">{{$t("labels.easydatacenter")}}</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content">
+    <div class="card flex-column justify-content-center align-items-center" v-if="isLoading">
+        <img class="animation__shake" src="@/assets/img/groupwearesolutions.png" alt="AdminLTELogo" height="60" width="60">
+    </div>
+    <div v-else class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">{{$t("labels.description")}}</h3>
+
+                <div class="card-tools">
+                    <button type="button" v-on:click="question()"
+                            class="btn btn-tool"
+                            :title="$t('labels.doYouHaveQuestion')">
+                        <i class="far fa-question-circle"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body" v-html="contentCz" v-if="($t('check') == 'cz')"></div>
+            <div class="card-body" v-html="contentEn" v-if="($t('check') == 'en')"></div>
+
+            <div class="card-footer pointer" v-on:click="question()" :title="$t('labels.doYouHaveQuestion')">{{$t("labels.doYouHaveQuestion")}}</div>
+        </div>
+    </div>
+</section>

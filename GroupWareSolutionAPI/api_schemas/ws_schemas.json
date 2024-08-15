@@ -1,0 +1,245 @@
+{
+  "default": {
+    "type": "object",
+    "properties": {
+      "req": {
+        "type": "string"
+      },
+      "result": {
+        "type": "number"
+      },
+      "code": {
+        "type": "string"
+      },
+      "message": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "object"
+          }
+        ]
+      }
+    }
+  },
+  "getChat": {
+    "response": {
+      "type": "object",
+      "properties": {
+        "req": {
+          "type": "string"
+        },
+        "result": {
+          "type": "number"
+        },
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "fromEmail": {
+                "type": "string"
+              },
+              "fromName": {
+                "type": "string"
+              },
+              "toEmail": {
+                "type": "string"
+              },
+              "toName": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "sex": {
+                "type": "number"
+              },
+              "timestamp": {
+                "type": "string"
+              },
+              "readed": {
+                "type": "boolean"
+              }
+            }
+          }
+        }
+      }
+    },
+    "request": {
+      "type": "object",
+      "properties": {
+        "session": {
+          "type": "string"
+        },
+        "lastTimestamp": {
+          "type": "string"
+        }
+      },
+      "required": [ "session", "lastTimestamp" ]
+    }
+  },
+  "setChat": {
+    "response": {
+      "type": "object",
+      "properties": {
+        "req": {
+          "type": "string"
+        },
+        "result": {
+          "type": "number"
+        },
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "request": {
+      "type": "object",
+      "properties": {
+        "session": {
+          "type": "string"
+        },
+        "toEmail": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "required": [ "session", "toEmail", "message" ]
+    }
+  },
+  "readChat": {
+    "response": {
+      "type": "object",
+      "properties": {
+        "req": {
+          "type": "string"
+        },
+        "result": {
+          "type": "number"
+        },
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "request": {
+      "type": "object",
+      "properties": {
+        "session": {
+          "type": "string"
+        },
+        "lastTimestamp": {
+          "type": "string"
+        }
+      },
+      "required": [ "session", "lastTimestamp" ]
+    }
+  },
+  "getEmail": {
+    "response": {
+      "type": "object",
+      "properties": {
+        "req": {
+          "type": "string"
+        },
+        "result": {
+          "type": "number"
+        },
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "fromEmail": {
+                "type": "string"
+              },
+              "fromName": {
+                "type": "string"
+              },
+              "toEmail": {
+                "type": "string"
+              },
+              "subject": {
+                "type": "string"
+              },
+              "content": {
+                "type": "string"
+              },
+              "timestamp": {
+                "type": "string"
+              },
+              "readed": {
+                "type": "boolean"
+              }
+            }
+          }
+        }
+      }
+    },
+    "request": {
+      "type": "object",
+      "properties": {
+        "session": {
+          "type": "string"
+        },
+        "lastTimestamp": {
+          "type": "string"
+        }
+      },
+      "required": [ "session", "lastTimestamp" ]
+    }
+  },
+  "readEmail": {
+    "response": {
+      "type": "object",
+      "properties": {
+        "req": {
+          "type": "string"
+        },
+        "result": {
+          "type": "number"
+        },
+        "code": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "request": {
+      "type": "object",
+      "properties": {
+        "session": {
+          "type": "string"
+        },
+        "lastTimestamp": {
+          "type": "string"
+        }
+      },
+      "required": [ "session", "lastTimestamp" ]
+    }
+  }
+}

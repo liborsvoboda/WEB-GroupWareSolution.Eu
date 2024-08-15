@@ -1,0 +1,35 @@
+{
+  "address": "0.0.0.0",
+  "host": "appi.kliknetezde.cz",
+  "ufwEnable": false,
+  "firewallIdEnable": true,
+  "server": {
+    "timeout": 86400000, 
+    "maxConnections": 50,
+    "testPort": 3300
+  },
+  "socket": {
+    "address": "192.168.1.117",
+    "timeout": 1800000
+  },
+  "db": {
+    "host": "185.129.138.52",
+    "type": "mysql",
+    "dbname": "BlackBox_IN",
+    "dbsourcename": "BlackBox",
+    "user": "dispecinkonline",
+    "password": "1!okA1!1!7&ac3#",
+    "poolMin": 0,
+    "poolMax": 10,
+    "poolAcquire": 1000000,
+    "poolIdle": 10000,
+    "realtime": {
+      "host": "185.129.138.52",
+      "user": "zongji",
+      "password": "fJ6K4&B78^vxpzL",
+      "charset": "utf8_general_ci",
+      "dateStrings": true,
+      "serverId": 1
+    }
+  }
+}

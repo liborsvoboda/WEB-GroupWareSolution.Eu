@@ -1,0 +1,1578 @@
+{
+  "hello": {
+    "response": {
+      "2xx": {
+        "type": "object",
+        "properties": {
+          "hello": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "signUp": {
+    "body": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "agreeTerms": {
+          "type": "number"
+        },
+        "recaptcha": {
+          "type": "string"
+        }
+      },
+      "required": [ "email", "password", "type", "agreeTerms", "recaptcha" ]
+    },
+    "response": {
+      "2xx": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "number"
+          },
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "session": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "setNewCalendar": {
+    "body": {
+      "type": "object",
+      "properties": {
+        "session": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        }
+      },
+      "required": [ "session", "name", "content" ]
+    },
+    "response": {
+      "2xx": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "number"
+          },
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "getCalendarAgendas": {
+    "body": {
+      "type": "object",
+      "properties": {
+        "session": {
+          "type": "string"
+        }
+      },
+      "required": [ "session" ]
+    },
+    "response": {
+      "2xx": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "number"
+          },
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "agendas": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number"
+                },
+                "userId": {
+                  "type": "number"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "content": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number"
+                      },
+                      "title": {
+                        "type": "string"
+                      },
+                      "start": {
+                        "type": "string"
+                      },
+                      "end": {
+                        "type": "string"
+                      },
+                      "allDay": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "setUserConfiguration": {
+    "body": {
+      "type": "object",
+      "properties": {
+        "session": {
+          "type": "string"
+        },
+        "config": {
+          "type": "string"
+        }
+      },
+      "required": [ "session", "config" ]
+    },
+    "response": {
+      "2xx": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "number"
+          },
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "readEmail": {
+    "body": {
+      "type": "object",
+      "properties": {
+        "session": {
+          "type": "string"
+        },
+        "emailId": {
+          "type": "number"
+        }
+      },
+      "required": [ "session", "emailId" ]
+    },
+    "response": {
+      "2xx": {
+        "properties": {
+          "result": {
+            "type": "number"
+          },
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "email": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "fromName": {
+                "type": "string"
+              },
+              "fromEmail": {
+                "type": "string"
+              },
+              "toEmail": {
+                "type": "string"
+              },
+              "subject": {
+                "type": "string"
+              },
+              "content": {
+                "type": "string"
+              },
+              "timestamp": {
+                "type": "string"
+              },
+              "attachments": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "fileName": {
+                      "type": "string"
+                    },
+                    "mimeType": {
+                      "type": "string"
+                    },
+                    "size": {
+                      "type": "number"
+                    },
+                    "content": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "getEmails": {
+    "body": {
+      "type": "object",
+      "properties": {
+        "session": {
+          "type": "string"
+        },
+        "lastTimestamp": {
+          "type": "string"
+        },
+        "pageNo": {
+          "type": "number"
+        },
+        "direction": {
+          "type": "string"
+        }
+      },
+      "required": [ "session", "lastTimestamp", "pageNo", "direction" ]
+    },
+    "response": {
+      "2xx": {
+        "properties": {
+          "result": {
+            "type": "number"
+          },
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "emails": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number"
+                },
+                "fromName": {
+                  "type": "string"
+                },
+                "fromEmail": {
+                  "type": "string"
+                },
+                "toEmail": {
+                  "type": "string"
+                },
+                "subject": {
+                  "type": "string"
+                },
+                "content": {
+                  "type": "string"
+                },
+                "timestamp": {
+                  "type": "string"
+                },
+                "readed": {
+                  "type": "boolean"
+                },
+                "attachment": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "getEshopItems": {
+    "body": {
+      "type": "object",
+      "properties": {
+        "pageNo": {
+          "type": "number"
+        },
+        "onlyDefaultAttachment": {
+          "type": "number"
+        },
+        "withInactive": {
+          "type": "number"
+        },
+        "id": {
+          "type": "string"
+        }
+      },
+      "required": [ "pageNo", "onlyDefaultAttachment", "withInactive" ]
+    },
+    "response": {
+      "2xx": {
+        "properties": {
+          "result": {
+            "type": "number"
+          },
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "eshopItems": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number"
+                },
+                "name_cz": {
+                  "type": "string"
+                },
+                "name_en": {
+                  "type": "string"
+                },
+                "shortDescription_cz": {
+                  "type": "string"
+                },
+                "shortDescription_en": {
+                  "type": "string"
+                },
+                "description_cz": {
+                  "type": "string"
+                },
+                "description_en": {
+                  "type": "string"
+                },
+                "blankUrl": {
+                  "type": "string"
+                },
+                "price": {
+                  "type": "number"
+                },
+                "priceType": {
+                  "type": "string"
+                },
+                "attachmentExist": {
+                  "type": "boolean"
+                },
+                "attachments": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "fileName": {
+                        "type": "string"
+                      },
+                      "mimeType": {
+                        "type": "string"
+                      },
+                      "size": {
+                        "type": "number"
+                      },
+                      "content": {
+                        "type": "string"
+                      },
+                      "default": {
+                        "type": "number"
+                      }
+                    }
+                  }
+                },
+                "comments": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "comment": {
+                        "type": "string"
+                      },
+                      "ratting": {
+                        "type": "number"
+                      },
+                      "timestamp": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "atributs": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "string"
+                      },
+                      "sequence": {
+                        "type": "number"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "value": {
+                        "type": "string"
+                      },
+                      "timestamp": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "enabled": {
+                  "type": "boolean"
+                },
+                "timestamp": {
+                  "type": "string"
+                },
+                "vatId": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "deleteEshopItems": {
+    "body": {
+      "type": "object",
+      "properties": {
+        "session": {
+          "type": "string"
+        },
+        "ids": {
+          "type": "array"
+        }
+      },
+      "required": [ "session", "ids" ]
+    },
+    "response": {
+      "2xx": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "number"
+          },
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "session": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "getAdminEshopItems": {
+    "body": {
+      "type": "object",
+      "properties": {
+        "session": {
+          "type": "string"
+        },
+        "pageNo": {
+          "type": "number"
+        },
+        "onlyDefaultAttachment": {
+          "type": "number"
+        },
+        "withInactive": {
+          "type": "number"
+        },
+        "id": {
+          "type": "string"
+        }
+      },
+      "required": [ "session", "pageNo", "onlyDefaultAttachment", "withInactive" ]
+    },
+    "response": {
+      "2xx": {
+        "properties": {
+          "result": {
+            "type": "number"
+          },
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "eshopItems": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number"
+                },
+                "name_cz": {
+                  "type": "string"
+                },
+                "name_en": {
+                  "type": "string"
+                },
+                "shortDescription_cz": {
+                  "type": "string"
+                },
+                "shortDescription_en": {
+                  "type": "string"
+                },
+                "description_cz": {
+                  "type": "string"
+                },
+                "description_en": {
+                  "type": "string"
+                },
+                "blankUrl": {
+                  "type": "string"
+                },
+                "price": {
+                  "type": "number"
+                },
+                "priceType": {
+                  "type": "string"
+                },
+                "attachmentExist": {
+                  "type": "boolean"
+                },
+                "attachments": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "fileName": {
+                        "type": "string"
+                      },
+                      "mimeType": {
+                        "type": "string"
+                      },
+                      "size": {
+                        "type": "number"
+                      },
+                      "content": {
+                        "type": "string"
+                      },
+                      "default": {
+                        "type": "number"
+                      }
+                    }
+                  }
+                },
+                "comments": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "comment": {
+                        "type": "string"
+                      },
+                      "ratting": {
+                        "type": "number"
+                      },
+                      "timestamp": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "atributs": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "string"
+                      },
+                      "sequence": {
+                        "type": "number"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "value": {
+                        "type": "string"
+                      },
+                      "timestamp": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "enabled": {
+                  "type": "boolean"
+                },
+                "timestamp": {
+                  "type": "string"
+                },
+                "vatId": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "getVats": {
+    "response": {
+      "2xx": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "number"
+          },
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "vats": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "number"
+                },
+                "enabled": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "getDeliveryTypes": {
+    "response": {
+      "2xx": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "number"
+          },
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "deliveryTypes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number"
+                },
+                "cz": {
+                  "type": "string"
+                },
+                "en": {
+                  "type": "string"
+                },
+                "enabled": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "getPaymentTypes": {
+    "response": {
+      "2xx": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "number"
+          },
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "paymentTypes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number"
+                },
+                "cz": {
+                  "type": "string"
+                },
+                "en": {
+                  "type": "string"
+                },
+                "enabled": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "getConfiguration": {
+    "response": {
+      "2xx": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "number"
+          },
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "configurations": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                },
+                "enabled": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "setMenuContent": {
+    "body": {
+      "type": "object",
+      "properties": {
+        "session": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "cz": {
+          "type": "string"
+        },
+        "en": {
+          "type": "string"
+        },
+        "enabled": {
+          "type": "number"
+        }
+      },
+      "required": [ "session", "name" ]
+    },
+    "response": {
+      "2xx": {
+        "properties": {
+          "result": {
+            "type": "number"
+          },
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "updateProfile": {
+    "body": {
+      "type": "object",
+      "properties": {
+        "session": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "surname": {
+          "type": "string"
+        },
+        "companyName": {
+          "type": "string"
+        },
+        "street": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "postcode": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "agreeTerms": {
+          "type": "number"
+        },
+        "picture": {
+          "type": "string"
+        }
+      },
+      "required": [ "session" ]
+    },
+    "response": {
+      "2xx": {
+        "properties": {
+          "result": {
+            "type": "number"
+          },
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "deleteEmails": {
+    "body": {
+      "type": "object",
+      "properties": {
+        "session": {
+          "type": "string"
+        },
+        "emails": {
+          "type": "array"
+        }
+      },
+      "required": [ "session", "emails" ]
+    },
+    "response": {
+      "2xx": {
+        "properties": {
+          "result": {
+            "type": "number"
+          },
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "authStatus": {
+    "body": {
+      "type": "object",
+      "properties": {
+        "session": {
+          "type": "string"
+        }
+      },
+      "required": [ "session" ]
+    },
+    "response": {
+      "2xx": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "number"
+          },
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "surname": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "sex": {
+                "type": "boolean"
+              },
+              "isAdmin": {
+                "type": "boolean"
+              },
+              "agreeTerms": {
+                "type": "boolean"
+              },
+              "street": {
+                "type": "string"
+              },
+              "city": {
+                "type": "string"
+              },
+              "postcode": {
+                "type": "string"
+              },
+              "phone": {
+                "type": "string"
+              },
+              "companyName": {
+                "type": "string"
+              },
+              "picture": {
+                "type": "string"
+              },
+              "configuration": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "value": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "knowledgeLanguages": {
+    "response": {
+      "2xx": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "number"
+          },
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "knowledgeLanguages": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number"
+                },
+                "language": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "getCurrency": {
+    "response": {
+      "2xx": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "number"
+          },
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "currencies": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number"
+                },
+                "country": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "getMenuList": {
+    "response": {
+      "2xx": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "number"
+          },
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "menuList": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "getMenuContent": {
+    "response": {
+      "2xx": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "number"
+          },
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "menu": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "name": {
+                "type": "string"
+              },
+              "cz": {
+                "type": "string"
+              },
+              "en": {
+                "type": "string"
+              },
+              "enabled": {
+                "type": "boolean"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "sendEmail": {
+    "body": {
+      "type": "object",
+      "properties": {
+        "session": {
+          "type": "string"
+        },
+        "fromName": {
+          "type": "string"
+        },
+        "fromEmail": {
+          "type": "string"
+        },
+        "toEmail": {
+          "type": "string"
+        },
+        "subject": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "attachmets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "fileName": {
+                "type": "string"
+              },
+              "mimeType": {
+                "type": "string"
+              },
+              "size": {
+                "type": "number"
+              },
+              "content": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "required": [ "fromName", "fromEmail", "subject", "content" ]
+    },
+    "response": {
+      "2xx": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "number"
+          },
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "eshopItemAdd": {
+    "body": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number"
+        },
+        "session": {
+          "type": "string"
+        },
+        "name_cz": {
+          "type": "string"
+        },
+        "name_en": {
+          "type": "string"
+        },
+        "shortDescription_cz": {
+          "type": "string"
+        },
+        "shortDescription_en": {
+          "type": "string"
+        },
+        "description_cz": {
+          "type": "string"
+        },
+        "description_en": {
+          "type": "string"
+        },
+        "blankUrl": {
+          "type": "string"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "vatId": {
+          "type": "number"
+        },
+        "attachmets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "fileName": {
+                "type": "string"
+              },
+              "mimeType": {
+                "type": "string"
+              },
+              "size": {
+                "type": "number"
+              },
+              "content": {
+                "type": "string"
+              },
+              "default": {
+                "type": "number"
+              },
+              "source": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "required": [ "session", "name_cz", "name_en", "shortDescription_cz", "shortDescription_en", "description_cz", "description_en" ]
+    },
+    "response": {
+      "2xx": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "number"
+          },
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "login": {
+    "body": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "recaptcha": {
+          "type": "string"
+        }
+      },
+      "required": [ "email", "type", "recaptcha" ]
+    },
+    "response": {
+      "2xx": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "number"
+          },
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "session": {
+            "type": "string"
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "surname": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "sex": {
+                "type": "boolean"
+              },
+              "isAdmin": {
+                "type": "boolean"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "resetPassword": {
+    "body": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "language": {
+          "type": "string"
+        },
+        "recaptcha": {
+          "type": "string"
+        }
+      },
+      "required": [ "email", "language", "recaptcha" ]
+    },
+    "response": {
+      "2xx": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "number"
+          },
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "getResetPassword": {
+    "body": {
+      "type": "object",
+      "properties": {
+        "confirmationPassword": {
+          "type": "string"
+        },
+        "recaptcha": {
+          "type": "string"
+        }
+      },
+      "required": [ "confirmationPassword", "recaptcha" ]
+    },
+    "response": {
+      "2xx": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "number"
+          },
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "recoverPassword": {
+    "body": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "recaptcha": {
+          "type": "string"
+        }
+      },
+      "required": [ "email", "password", "recaptcha" ]
+    },
+    "response": {
+      "2xx": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "number"
+          },
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "session": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "setEshopOrder": {
+    "body": {
+      "type": "object",
+      "properties": {
+        "variableSymbol": {
+          "type": "string"
+        },
+        "paymentType": {
+          "type": "string"
+        },
+        "deliveryType": {
+          "type": "string"
+        },
+        "totalPrice": {
+          "type": "number"
+        },
+        "totalVatPrice": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "street": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "postCode": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "otherDeliveryAddress": {
+          "type": "boolean"
+        },
+        "deliveryCompanyName": {
+          "type": "string"
+        },
+        "deliveryName": {
+          "type": "string"
+        },
+        "deliveryStreet": {
+          "type": "string"
+        },
+        "deliveryCity": {
+          "type": "string"
+        },
+        "deliveryPostCode": {
+          "type": "string"
+        },
+        "deliveryEmail": {
+          "type": "string"
+        },
+        "deliveryPhone": {
+          "type": "string"
+        },
+
+        "language": {
+          "type": "string"
+        },
+        "items": {
+          "type": "string"
+        },
+        "printOrderArea": {
+          "type": "string"
+        },
+        "printPriceArea": {
+          "type": "string"
+        },
+        "printItemArea": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "variableSymbol", "paymentType", "deliveryType", "totalPrice", "totalVatPrice", "name", "street", "city", "postCode", "email", "phone",
+        "otherDeliveryAddress", "deliveryCompanyName", "deliveryName", "deliveryStreet", "deliveryCity", "deliveryPostCode", "deliveryEmail", "deliveryPhone",
+        "language", "items", "printOrderArea", "printPriceArea", "printItemArea" ]
+    },
+    "response": {
+      "2xx": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "number"
+          },
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "responseOnly": {
+    "response": {
+      "2xx": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "number"
+          },
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "session": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

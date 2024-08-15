@@ -1,0 +1,67 @@
+<div class="register-box">
+    <div class="card card-outline card-primary">
+        <div class="card-header text-center">
+            <router-link to="/" class="h2">
+                <b>{{ $t("labels.company") }}</b>{{ $t("labels.lte")}}
+            </router-link>
+        </div>
+        <div class="card-body">
+            <p class="login-box-msg">{{ $t("labels.registerMembership") }}</p>
+
+            <form @submit.prevent="registerByAuth('auth')">
+                <div class="input-group mb-3">
+                    <input class="form-control" type="email" :placeholder="$t('labels.email')" maxlength="255" autocomplete="off" v-model="email" :class="{ wrongInput: v$.email.$invalid }" v-on:input="validations()" />
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-envelope"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input class="form-control" id="password" type="password" :placeholder="$t('labels.password')" maxlength="20" v-model="password" :class="{ wrongInput: v$.password.$invalid }" v-on:input="validations()" />
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input class="form-control" id="retypePassword" type="password" :placeholder="$t('labels.retypePassword')" maxlength="20" v-model="rePassword" :class="{ wrongInput: v$.rePassword.$invalid }" v-on:input="validations()" />
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-7">
+                        <app-checkbox type="icheck" v-model="agreeTerms" id="agreeTerms">
+                            {{ $t("labels.iAgree") }}
+                            <a href="#">{{ $t("labels.terms") }}</a>
+                        </app-checkbox>
+
+                    </div>
+                    <div class="col-5">
+                        <app-button class="btn-primary" type="submit" block="true" :loading="isAuthLoading" :disabled="isFacebookLoading || isGoogleLoading || v$.$invalid">
+                            {{ $t("labels.register") }}
+                        </app-button>
+                    </div>
+                </div>
+            </form>
+
+            <div class="social-auth-links text-center">
+                <!--<app-button class="btn-primary" icon="facebook" block="true" @click="registerByAuth('facebook')" :loading="isFacebookLoading" :disabled="isAuthLoading || isGoogleLoading">
+                    {{ $t("labels.signUpUsingFB") }}
+                </app-button>
+
+                <app-button class="btn-danger" icon="google-plus" block="true" @click="registerByAuth('google')" :loading="isGoogleLoading" :disabled="isAuthLoading || isFacebookLoading">
+                    {{ $t("labels.signUpUsingGoogle") }}
+                </app-button>-->
+            </div>
+
+            <router-link to="/login" class="text-center">
+                {{ $t("labels.alreadyHaveMembership") }}
+            </router-link>
+        </div>
+    </div>
+</div>

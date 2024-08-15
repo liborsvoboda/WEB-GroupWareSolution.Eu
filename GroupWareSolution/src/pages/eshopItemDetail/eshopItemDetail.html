@@ -1,0 +1,180 @@
+﻿<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>{{$t("labels.eshopItemDetail")}}</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><router-link to="/">{{$t("labels.home")}}</router-link></li>
+                    <li class="breadcrumb-item "><router-link to="/eshop">{{ $t("labels.eshop") }}</router-link></li>
+                    <li class="breadcrumb-item active">{{$t("labels.eshopItemDetail")}}</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="card flex-column justify-content-center align-items-center" v-if="isLoading">
+        <img class="animation__shake" src="@/assets/img/groupwearesolutions.png" alt="AdminLTELogo" height="60" width="60">
+    </div>
+    <div v-else class="row">
+        <div class="col-md-12">
+            <div class="card-body row">
+                <div class="col-12 col-sm-6">
+                    <div class="col-12" v-for="file,index in filesArray" v-if="defaultFileExists">
+                        <img id="previewImage" v-if="file.default" :src="file.content" class="product-image" :title="file.fileName">
+                    </div>
+                    <div class="col-12 product-image-thumbs" v-if="defaultFileExists">
+                        <div class="product-image-thumb pointer" v-for="file,index in filesArray">
+                            <img v-if="['png', 'jpeg', 'jpg'].some(el => file.mimeType.includes(el))" v-on:click="showImage(file.id)" :src="file.content" :title="file.fileName">
+                            <img v-else v-on:click="downloadFile(file.id)" src="@/assets/img/file.png" :title="file.fileName">
+                            <div style="margin-left: -100px; position: relative; top: 100px; width: 100px; max-width: 100px; overflow-wrap: break-word; text-align: center; ">{{file.fileName}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6">
+                    <h3 class="mb-3" v-if="($t('check') == 'cz')">{{inputNameCZ}}</h3>
+                    <h3 class="mb-3" v-if="($t('check') == 'en')">{{inputNameEN}}</h3>
+                    <p v-if="($t('check') == 'cz')" v-html="shortContentCZ"></p>
+                    <p v-if="($t('check') == 'en')" v-html="shortContentEN"></p>
+
+                    <hr v-if="atributsColor.length > 0">
+                    <h4 v-if="atributsColor.length > 0">{{$t("eshop.selectColor")}}</h4>
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons" v-if="atributsColor.length > 0">
+                        <label class="btn btn-default text-center active" v-for="atribut,index in atributsColor">
+                            <input type="radio" :id="atribut.name" autocomplete="off" />
+                            {{atribut.name}}
+                            <br>
+                            <i class="fas fa-circle fa-2x" :class="atribut.value"></i>
+                        </label>
+                    </div>
+
+                    <h4 v-if="atributsSize.length > 0" class="mt-3">{{$t("eshop.selectSize")}}</h4>
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons" v-if="atributsSize.length > 0">
+                        <label class="btn btn-default text-center" v-for="atribut,index in atributsSize">
+                            <input type="radio" :id="atribut.name" autocomplete="off">
+                            <span class="text-xl">{{atribut.value}}</span>
+                            <br>
+                            {{atribut.name}}
+                        </label>
+                    </div>
+
+                    <div class="bg-gray py-2 px-3 mt-4" v-if="priceType =='VALUE' && ($t('check') == 'cz')">
+                        <h2 class="mb-0">
+                            {{$t("eshop.price")}} {{$t("eshop.withVat")}} {{getVatById(vatId).name}}: {{Math.round(inputPrice * (1/getCurrencyByCountry($t('check')).value) * (1 + getVatById(vatId).value),0)}}
+                            <span>{{getCurrencyByCountry($t('check')).name}}</span>
+                        </h2>
+                        <h4 class="mt-0">
+                            <small>{{$t("eshop.price")}} {{$t("eshop.withoutVat")}}: {{Math.round(inputPrice * (1/getCurrencyByCountry($t('check')).value),0)}} {{getCurrencyByCountry($t('check')).name}}</small>
+                        </h4>
+                    </div>
+                    <div class="bg-gray py-2 px-3 mt-4" v-if="priceType =='VALUE' && ($t('check') == 'en')">
+                        <h2 class="mb-0">
+                            {{$t("eshop.price")}} {{$t("eshop.withVat")}} {{getVatById(vatId).name}}: {{(Math.round(inputPrice * (1/getCurrencyByCountry($t('check')).value) * 100 * (1 + getVatById(vatId).value),2))/100}}
+                            <span>{{getCurrencyByCountry($t('check')).name}}</span>
+                        </h2>
+                        <h4 class="mt-0">
+                            <small>{{$t("eshop.price")}} {{$t("eshop.withoutVat")}}: {{(Math.round(inputPrice * (1/getCurrencyByCountry($t('check')).value) * 100,2))/100}} {{getCurrencyByCountry($t('check')).name}}</small>
+                        </h4>
+                    </div>
+                    <div class="bg-gray py-2 px-3 mt-4" v-if="(priceType =='CALCULATE' || priceType =='AGREED')">
+                        <h2 class="mb-0" v-if="priceType =='CALCULATE'">
+                            {{$t("eshop.price")}} {{$t("eshop.withVat")}}: {{$t("eshop.calculatedPrice")}}
+                        </h2>
+                        <h2 class="mb-0" v-if="priceType =='AGREED'">
+                            {{$t("eshop.price")}} {{$t("eshop.withVat")}}: {{$t("eshop.agreedPrice")}}
+                        </h2>
+                    </div>
+
+                    <!--<div class="mt-4">
+                        <label>{{$t("labels.writeNoteHere")}}</label>
+                        <div id="summerNote">{{inputNote}}</div>
+                    </div>-->
+
+                    <div class="mt-4">
+                        <input type="number" v-model="inputCount" v-on:input="validations()" maxlength="3" required class="form-control" style="display: inline-flex; width: 100px; font-size: 1.5rem; vertical-align: middle; margin-right: 1rem; height: 3rem; " :class="{ wrongInput: v$.inputCount.$invalid }" />
+
+                        <div class="btn btn-primary btn-lg btn-flat mr-2" v-on:click="addToBasket()" :disabled="(v$.$invalid)">
+                            <i class="fas fa-cart-plus fa-lg mr-2"></i>
+                            {{$t("eshop.basketAdd")}}
+                        </div>
+
+                        <div class="btn btn-default btn-lg btn-flat" v-if="basketItems.length > 0">
+                            <router-link to="/basket">
+                                <i class="fas fa-shopping-cart fa-lg mr-2"></i>
+                                {{$t("labels.gotoBasket")}}
+                            </router-link>
+                        </div>
+                        <!--<div class="btn btn-default btn-lg btn-flat">
+                            <i class="fas fa-heart fa-lg mr-2"></i>
+                            Add to Wishlist
+                        </div>-->
+                    </div>
+
+
+                    <!--<div class="mt-4 product-share">
+                        <a href="#" class="text-gray">
+                            <i class="fab fa-facebook-square fa-2x"></i>
+                        </a>
+                        <a href="#" class="text-gray">
+                            <i class="fab fa-twitter-square fa-2x"></i>
+                        </a>
+                        <a href="#" class="text-gray">
+                            <i class="fas fa-envelope-square fa-2x"></i>
+                        </a>
+                        <a href="#" class="text-gray">
+                            <i class="fas fa-rss-square fa-2x"></i>
+                        </a>
+                    </div>-->
+
+                </div>
+                <div class="row mt-4">
+                    <nav class="w-100">
+                        <div class="nav nav-tabs" id="product-tab" role="tablist">
+                            <a class="nav-item nav-link active" id="product-desc-tab" data-toggle="tab" href="#product-desc" role="tab" aria-controls="product-desc" aria-selected="true">{{$t("labels.description")}}</a>
+                            <a class="nav-item nav-link" v-if="comments.length > 0" id="product-comments-tab" data-toggle="tab" href="#product-comments" role="tab" aria-controls="product-comments" aria-selected="false">{{$t("labels.comments")}}</a>
+                            <a class="nav-item nav-link" v-if="comments.length > 0" id="product-rating-tab" data-toggle="tab" href="#product-rating" role="tab" aria-controls="product-rating" aria-selected="false">{{$t("labels.ratting")}}</a>
+                        </div>
+                    </nav>
+                    <div class="tab-content p-3" id="nav-tabContent">
+                        <div v-if="($t('check') == 'cz')" class="tab-pane fade show active" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab" v-html="contentCZ"></div>
+                        <div v-if="($t('check') == 'en')" class="tab-pane fade show active" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab" v-html="contentEN"></div>
+
+                        <div class="tab-pane fade" id="product-comments" v-if="comments.length > 0" role="tabpanel" aria-labelledby="product-comments-tab" style="overflow-y: auto; min-width: 800px; ">
+                            <div v-for="comment,index in comments" class="d-flex pb-5">
+                                <span style="min-width: 70%;">{{comment.comment}}</span>
+                                <span class="d-block text-right" style="min-width:205px;">
+                                    <div>{{new Date(comment.timestamp).toLocaleDateString("cs-CZ").replace(/\s+/g, '')}}</div>
+                                    <span v-for="star,index in 5" :key="index">
+                                        <img v-if="comment.ratting >= star" src="@/assets/img/star.png" style="width:36px" />
+                                        <img v-if="(comment.ratting - star) >= 0.5 && (comment.ratting - star) < 1" src="@/assets/img/halfStar.png" style="width:37px" />
+                                        <img v-if="(comment.ratting - star) < -0.5" src="@/assets/img/emptyStar.png" style="width:36px" />
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="product-rating" v-if="comments.length > 0" role="tabpanel" aria-labelledby="product-rating-tab" style="overflow-y: auto; min-width: 800px;">
+                            <div v-for="comment,index in comments" class="d-flex pb-5" style="min-width: 100%; width: 100%;">
+                                <div v-for="star,index in 5" :key="index" class="d-flex">
+                                    <img v-if="comment.ratting >= star" src="@/assets/img/star.png" style="width:36px" />
+                                    <img v-if="(comment.ratting - star) >= 0.5 && (comment.ratting - star) < 1" src="@/assets/img/halfStar.png" style="width:37px" />
+                                    <img v-if="(comment.ratting - star) < -0.5" src="@/assets/img/emptyStar.png" style="width:36px" />
+                                </div>
+                                <span class="d-inline-flex w-100"></span>
+                                <span class="d-block text-right" style="min-width:205px;">
+                                    <div>{{new Date(comment.timestamp).toLocaleDateString("cs-CZ").replace(/\s+/g, '')}}</div>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

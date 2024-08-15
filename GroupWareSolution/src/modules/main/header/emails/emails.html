@@ -1,0 +1,31 @@
+<app-dropdown size="lg">
+    <template v-slot:dropdown-button>
+        <i class="fas fa-mail-bulk"></i>
+        <span class="badge badge-warning navbar-badge-left" v-if="(emailsNotReaded > 0)">{{emailsNotReaded}}</span>
+        <span class="badge badge-success navbar-badge" v-if="(emailsReaded > 0)">{{emailsReaded}}</span>
+    </template>
+    <template v-slot:dropdown-menu>
+        <div class="dropdown-item dropdown-footer pointer" v-on:click="writeNewMail()">
+            <i class="fas fa-envelope mr-2"></i>{{ $t("labels.writeNewEmail") }}
+            <span class="float-right text-muted text-sm"></span>
+        </div>
+        <div class="dropdown-divider"></div>
+
+        <router-link to="/inbox" class="dropdown-item dropdown-footer" v-if="(emailsNotReaded > 0)">
+            <i class="fas fa-envelope mr-2"></i> {{emailsNotReaded}} {{ $t("labels.newEmails") }}
+            <span class="float-right text-muted text-sm"></span>
+        </router-link>
+        <!--<div class="dropdown-divider" v-if="(emailsNotReaded > 0)"></div>-->
+        <router-link to="/inbox" class="dropdown-item dropdown-footer" v-if="(emailsReaded > 0)">
+            <i class="far fa-envelope-open mr-2"></i> {{emailsReaded}}  {{ $t("labels.readedEmails") }}
+            <span class="float-right text-muted text-sm"></span>
+        </router-link>
+        <!--<div class="dropdown-divider" v-if="(emailsReaded > 0)"></div>-->
+        <router-link to="/sent" class="dropdown-item dropdown-footer" v-if="(emailsSent > 0)">
+            <i class="far fa-envelope-open mr-2"></i> {{emailsSent}}  {{ $t("labels.emailsSent") }}
+            <span class="float-right text-muted text-sm"></span>
+        </router-link>
+        <div class="dropdown-divider" v-if="(emailsReaded > 0)"></div>
+        <router-link to="/inbox" class="dropdown-item dropdown-footer" v-if="( emailsNotReaded + emailsReaded > 0)">{{ $t("labels.seeAllEmails") }}</router-link>
+    </template>
+</app-dropdown>
