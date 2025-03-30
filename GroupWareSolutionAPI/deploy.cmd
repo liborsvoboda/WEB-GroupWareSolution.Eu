@@ -1,11 +1,11 @@
 ﻿
 @ECHO off
 @ECHO start deploying API
-pscp.exe -P 22 -r -pw Ubuntu1980 *.js root@192.168.1.55:/root/groupwaresolutionAPI
-pscp.exe -P 22 -r -pw Ubuntu1980 startupPm2 root@192.168.1.55:/root/groupwaresolutionAPI
-pscp.exe -P 22 -r -pw Ubuntu1980 *.json root@192.168.1.55:/root/groupwaresolutionAPI
+pscp.exe -P 22 -r -pw password *.js root@domain.com:/root/groupwaresolutionAPI
+pscp.exe -P 22 -r -pw password startupPm2 root@domain.com:/root/groupwaresolutionAPI
+pscp.exe -P 22 -r -pw password *.json root@domain.com:/root/groupwaresolutionAPI
 
-pscp.exe -P 22 -r -pw Ubuntu1980 api* root@192.168.1.55:/root/groupwaresolutionAPI
-pscp.exe -P 22 -r -pw Ubuntu1980 config* root@192.168.1.55:/root/groupwaresolutionAPI
-pscp.exe -P 22 -r -pw Ubuntu1980 data* root@192.168.1.55:/root/groupwaresolutionAPI
+pscp.exe -P 22 -r -pw password api* root@domain.com:/root/groupwaresolutionAPI
+pscp.exe -P 22 -r -pw password config* root@domain.com:/root/groupwaresolutionAPI
+pscp.exe -P 22 -r -pw password data* root@domain.com:/root/groupwaresolutionAPI
 @ECHO done
